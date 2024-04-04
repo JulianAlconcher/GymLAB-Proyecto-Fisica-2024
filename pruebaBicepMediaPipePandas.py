@@ -9,7 +9,7 @@ pose = mp_pose.Pose()
 columns = ['Frame', 'Shoulder_X', 'Shoulder_Y', 'Elbow_X', 'Elbow_Y', 'Wrist_X', 'Wrist_Y']
 df = pd.DataFrame(columns=columns)
 
-cap = cv2.VideoCapture("FisicaI/Ejercicios/Videos/fran-bicep-3.MOV")
+cap = cv2.VideoCapture("Proyecto-Fisica/Videos/fran-bicep-3.MOV")
 
 # Procesamos cada frame, y extraemos landmarks
 frame_number = 0

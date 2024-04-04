@@ -25,7 +25,7 @@ def calcular_angulo(a,b,c):
         
     return angle 
    
-cap = cv2.VideoCapture("FisicaI/Ejercicios/Videos/fran-bicep-3.MOV")#Abrimos Webcam (0) (podemos cambiarlo)
+cap = cv2.VideoCapture("Proyecto-Fisica/Videos/fran-bicep-3.MOV")#Abrimos Webcam (0) (podemos cambiarlo)
 ## Setup mediapipe instance
 # Min_detection_confidence: El porcentaje de confianza que se debe tener en la detección de un objeto para que se consideren los puntos de referencia. 
 # Min_tracking_confidence: El porcentaje de confianza que se debe tener en la detección de un objeto para que se considere que el objeto se encuentra en la imagen. 
@@ -63,7 +63,7 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
             # np.multiply(elbow, [640, 480]) multiplico coordenadas del hombro por los px de la webcam.
             # Ya que las coordenadas de los landmarks son cartesianas comunes y no pixeles
             cv2.putText(image, str(angle), 
-                           tuple(np.multiply(elbow, [640, 480]).astype(int)), 
+                           tuple(np.multiply(elbow, [1920, 1080]).astype(int)), 
                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA)
             
             # Contador de flexiones de brazo.

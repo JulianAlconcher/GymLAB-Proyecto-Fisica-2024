@@ -6,7 +6,7 @@ file_path = "pose_data.csv"
 df = pd.read_csv(file_path)
 
 # Abre el video para lectura
-cap = cv2.VideoCapture("FisicaI/Ejercicios/Videos/fran-bicep-3.MOV") # Reemplaza 'ruta_del_video.mp4' con la ruta de tu video
+cap = cv2.VideoCapture("Proyecto-Fisica/Videos/fran-bicep-3.MOV") 
 
 window_name = 'Skeleton'
 
