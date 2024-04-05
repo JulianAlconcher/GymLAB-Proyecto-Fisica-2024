@@ -28,11 +28,11 @@ while cap.isOpened():
         elbow = None
         wrist = None
         for id, landmark in enumerate(results.pose_landmarks.landmark):
-            if id == mp_pose.PoseLandmark.LEFT_SHOULDER.value:
+            if id == mp_pose.PoseLandmark.RIGHT_SHOULDER.value:
                 shoulder = (int(landmark.x * frame.shape[1]), int(landmark.y * frame.shape[0]))
-            elif id == mp_pose.PoseLandmark.LEFT_ELBOW.value:
+            elif id == mp_pose.PoseLandmark.RIGHT_ELBOW.value:
                 elbow = (int(landmark.x * frame.shape[1]), int(landmark.y * frame.shape[0]))
-            elif id == mp_pose.PoseLandmark.LEFT_WRIST.value:
+            elif id == mp_pose.PoseLandmark.RIGHT_WRIST.value:
                 wrist = (int(landmark.x * frame.shape[1]), int(landmark.y * frame.shape[0]))
 
         if shoulder and elbow and wrist:

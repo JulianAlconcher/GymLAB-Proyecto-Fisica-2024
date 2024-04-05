@@ -26,8 +26,13 @@ while(cap.isOpened()):
         cv2.circle(frame, shoulder_point, 5, (0, 255, 0), -1)  # Dibujar círculo para hombro
         cv2.circle(frame, elbow_point, 5, (0, 0, 255), -1)     # Dibujar círculo para codo
         cv2.circle(frame, wrist_point, 5, (255, 0, 0), -1)     # Dibujar círculo para muñeca
+    
+    # Dibujar líneas conectando los puntos de las articulaciones
+    for shoulder_point, elbow_point, wrist_point in zip(shoulder_points, elbow_points, wrist_points):
+        cv2.line(frame, shoulder_point, elbow_point, (0, 255, 255), 2) # Línea del hombro al codo
+        cv2.line(frame, elbow_point, wrist_point, (255, 255, 0), 2)    # Línea del codo a la muñeca
 
-    # Mostrar el cuadro con los puntos dibujados
+    # Mostrar el cuadro con los puntos y líneas dibujados
     cv2.imshow(window_name, frame)
 
     # Salir si se presiona 'q'
