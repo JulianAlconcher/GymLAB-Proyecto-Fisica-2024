@@ -1,0 +1,7 @@
+TODO
+- Velocidad
+- Aceleracion de la mano
+- Velocidad relativa de la mano respecto al codo (resta)
+- Contador de repeticiones
+
+- Y graficarlo y libreria de graficar en X,Y
