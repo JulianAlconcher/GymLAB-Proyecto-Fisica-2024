@@ -5,3 +5,11 @@ TODO
 - Contador de repeticiones
 
 - Y graficarlo y libreria de graficar en X,Y
+
+
+
+
+app-v2 TO-DO
+
+- Segun el tipo de ejercicio seleccione diferentes landmarks
+- Graficos a la derecha del frame de video con matplotlib
