@@ -52,7 +52,7 @@ class VideoPlayerApp:
         self.video_label.pack()
 
         # Spinner
-        self.spinner = ttk.Label(master, text="Procesando video", font=('Helvetica', 12))
+        self.spinner = ttk.Label(master, text="Procesando...", font=('Helvetica', 12))
         self.spinner.grid(row=5, columnspan=2, padx=10, pady=5)
         self.spinner.grid_remove()
 
@@ -209,3 +209,5 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = VideoPlayerApp(root)
     root.mainloop()
+
+
