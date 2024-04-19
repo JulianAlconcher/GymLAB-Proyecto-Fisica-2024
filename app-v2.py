@@ -5,6 +5,7 @@ from tkinter import filedialog
 import cv2
 import mediapipe as mp
 from PIL import Image, ImageTk
+import numpy as np
 import pandas as pd
 from multiprocessing import Process
 
@@ -67,6 +68,9 @@ class VideoPlayerApp:
     def enable_video_selection(self, event=None):
         self.button_browse.config(state=tk.NORMAL)
 
+
+    
+
     def browse_video(self):
         filename = filedialog.askopenfilename(filetypes=[("Video files", "*.MOV")])
         if filename:
@@ -93,7 +97,6 @@ class VideoPlayerApp:
     def start_landmark_detection(self, video_path):
     # Llamar a la función para iniciar la detección de puntos de referencia
         getLandmarks(video_path)
-        # Cambiar el spinner giratorio de vuelta al botón de enviar al finalizar el proceso
         # Cambiar el spinner giratorio de vuelta al botón de enviar al finalizar el proceso
         self.master.after(0, self.update_ui_after_detection)
 
@@ -157,7 +160,7 @@ def getLandmarks(video_path):
     pose = mp_pose.Pose()
 
     # Inicializamos las columnas del dataframe
-    columns = ['Frame', 'Shoulder_X', 'Shoulder_Y', 'Elbow_X', 'Elbow_Y', 'Wrist_X', 'Wrist_Y']
+    columns = ['Frame', 'Shoulder_X', 'Shoulder_Y', 'Elbow_X', 'Elbow_Y', 'Wrist_X', 'Wrist_Y', 'Angle']
     df = pd.DataFrame(columns=columns)
 
     cap = cv2.VideoCapture(video_path)
@@ -185,12 +188,16 @@ def getLandmarks(video_path):
                     elbow = (int(landmark.x * frame.shape[1]), int(landmark.y * frame.shape[0]))
                 elif id == mp_pose.PoseLandmark.RIGHT_WRIST.value:
                     wrist = (int(landmark.x * frame.shape[1]), int(landmark.y * frame.shape[0]))
+                
 
             if shoulder and elbow and wrist:
                 df = df._append({'Frame': frame_number,
                                 'Shoulder_X': shoulder[0], 'Shoulder_Y': shoulder[1],
                                 'Elbow_X': elbow[0], 'Elbow_Y': elbow[1],
-                                'Wrist_X': wrist[0], 'Wrist_Y': wrist[1]}, ignore_index=True)
+                                'Wrist_X': wrist[0], 'Wrist_Y': wrist[1],
+                                'Angle': round(calcular_angulo(shoulder[0], shoulder[1], elbow[0], elbow[1], wrist[0], wrist[1]), 2)},
+                                    ignore_index=True)
+                print(f"Angle: {round(calcular_angulo(shoulder[0], shoulder[1], elbow[0], elbow[1], wrist[0], wrist[1]), 2)}")
                 frame_number += 1
 
     cap.release()
@@ -202,7 +209,23 @@ def getLandmarks(video_path):
     print(df)
     return True
 
+def calcular_angulo(a0,a1,b0,b1,c0,c1):
+        
+        p = np.array([a0 - b0, a1 - b1])
+        q = np.array([c0 - b0, c1 - b1])
 
+        pq = p[0] * q[0] + p[1] * q[1]
+
+        Mp = np.sqrt(p[0] ** 2 + p[1] ** 2)
+        Mq = np.sqrt(q[0] ** 2 + q[1] ** 2)
+
+        cos_theta = pq / (Mp * Mq)
+
+        theta = np.arccos(cos_theta)
+
+        angle = np.degrees(theta)
+
+        return angle
 
 
 if __name__ == "__main__":
