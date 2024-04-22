@@ -9,6 +9,9 @@ import numpy as np
 import pandas as pd
 from multiprocessing import Process
 
+MAX_RANGE= 160
+MIN_RANGE= 50
+
 class VideoPlayerApp:
     def __init__(self, master):
         self.master = master
@@ -116,10 +119,31 @@ class VideoPlayerApp:
             self.video_label.image = self.current_frame  # Mantener referencia a la imagen
             self.calculate_scale_factors()  # Calcular los factores de escala
             self.plot_points_on_video(frame)
+            self.show_reps_on_video(frame)
             self.video_label.after(10, self.process_frame)  # Llama a process_frame después de 10ms para reproducir el video
         else:
             self.video_cap.release()
 
+    def show_reps_on_video(self,frame):
+        # Cargar datos desde el archivo CSV en un DataFrame
+        file_path = "pose_data.csv"  
+        df = pd.read_csv(file_path)
+
+        # Obtener el angulo del frame actual
+        angle=[int(row['Angle']) for index, row in df[df['Frame'] == self.video_cap.get(cv2.CAP_PROP_POS_FRAMES)].iterrows()]
+        reps=[int(row['Reps']) for index, row in df[df['Frame'] == self.video_cap.get(cv2.CAP_PROP_POS_FRAMES)].iterrows()]
+        cv2.putText(frame, f"Angulo: {angle}", (20, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        cv2.putText(frame, f"Repeticiones: {reps}", (20, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+
+        # Convertir el frame modificado a formato adecuado para mostrar en la GUI
+        frame_with_text = Image.fromarray(frame)
+        frame_with_text = ImageTk.PhotoImage(image=frame_with_text)
+
+        # Mostrar el frame modificado en la GUI
+        self.video_label.configure(image=frame_with_text)
+        self.video_label.image = frame_with_text
+        
+        # Cargar datos desde el archivo CSV en un DataFrame
     def calculate_scale_factors(self):
         # Factores de escala para las coordenadas x e y
         self.scale_x = 854 / 1920
@@ -167,6 +191,8 @@ def getLandmarks(video_path):
 
     # Procesamos cada frame, y extraemos landmarks
     frame_number = 0
+    contador_reps=0
+    state="up"
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
@@ -191,13 +217,17 @@ def getLandmarks(video_path):
                 
 
             if shoulder and elbow and wrist:
+                angle= round(calcular_angulo(shoulder[0], shoulder[1], elbow[0], elbow[1], wrist[0], wrist[1]))
                 df = df._append({'Frame': frame_number,
                                 'Shoulder_X': shoulder[0], 'Shoulder_Y': shoulder[1],
                                 'Elbow_X': elbow[0], 'Elbow_Y': elbow[1],
                                 'Wrist_X': wrist[0], 'Wrist_Y': wrist[1],
-                                'Angle': round(calcular_angulo(shoulder[0], shoulder[1], elbow[0], elbow[1], wrist[0], wrist[1]), 2)},
+                                'Angle': angle,
+                                'Reps': round(contador_reps)},
                                     ignore_index=True)
-                print(f"Angle: {round(calcular_angulo(shoulder[0], shoulder[1], elbow[0], elbow[1], wrist[0], wrist[1]), 2)}")
+                print(f"Angle: {angle}")
+                state,contador_reps=contador_repeticiones(angle,state,contador_reps)
+                print("Repeticiones:", contador_reps)
                 frame_number += 1
 
     cap.release()
@@ -208,6 +238,14 @@ def getLandmarks(video_path):
 
     print(df)
     return True
+
+def contador_repeticiones(angle,state,contador_reps):
+    if angle >= MAX_RANGE and state =="down":
+        state="up"
+    if angle <= MIN_RANGE and state =="up":
+        state="down"
+        contador_reps += 1
+    return state,contador_reps
 
 def calcular_angulo(a0,a1,b0,b1,c0,c1):
         
