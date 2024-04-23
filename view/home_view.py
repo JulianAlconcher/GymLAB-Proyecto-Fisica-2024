@@ -1,77 +1,85 @@
 import threading
+from PIL import Image, ImageTk
 from tkinter import filedialog
 import customtkinter as ctk
 import cv2
-from PIL import Image, ImageTk
 import pandas as pd
+
 from video_processing import get_landmarks
 
-ctk.set_appearance_mode("dark")
-ctk.set_default_color_theme("dark-blue")
+class HomeView(ctk.CTkFrame):
+    def __init__(self, master, **kwargs):
+        super().__init__(master, **kwargs)
+        self.build_ui()
 
-class App(ctk.CTk):
-    def __init__(self):
-        super().__init__()
-        self.geometry("1300x700")
-        self.title("GYM Analyzer")
-        self.resizable(False, False)
-        self.process_running = False  # Bandera para indicar si el proceso está en ejecución
+    def build_ui(self):
 
-        # ComboBox con las opciones
-        self.label_ejercicio = ctk.CTkLabel(self, text="Ejercicio:")
+        # Configurar columnas del contenedor (self) para expandirse
+        self.columnconfigure(0, weight=1)
+        self.columnconfigure(1, weight=1)
+        
+        options_frame = ctk.CTkFrame(master = self, 
+                                     fg_color="transparent",
+                                     )
+
+        # Etiqueta y combobox para seleccionar el ejercicio        
+        self.label_ejercicio = ctk.CTkLabel(options_frame, text="Ejercicio:")
         self.label_ejercicio.grid(row=0, column=0, padx=10, pady=5, sticky="e")
 
         self.ejercicio_options = ["Curl de biceps", "Sentadilla", "Banco plano", "Banco inclinado"]
-        self.combobox_ejercicio = ctk.CTkComboBox(self, values=self.ejercicio_options)
+        self.combobox_ejercicio = ctk.CTkComboBox(options_frame, values=self.ejercicio_options)
         self.combobox_ejercicio.grid(row=0, column=1, padx=10, pady=5, sticky="w")
 
         # Etiqueta y botón para seleccionar un video
-        self.label_video = ctk.CTkLabel(self, text="Video:")
+        self.label_video = ctk.CTkLabel(options_frame, text="Video:")
         self.label_video.grid(row=1, column=0, padx=10, pady=5, sticky="e")
 
         self.selected_video = ctk.StringVar()
         self.selected_video.set("Seleccionar")
-        self.button_browse = ctk.CTkButton(self, textvariable=self.selected_video, command=self.browse_video)
+        self.button_browse = ctk.CTkButton(options_frame, textvariable=self.selected_video, command=self.browse_video)
         self.button_browse.grid(row=1, column=1, padx=10, pady=5, sticky="w")
         
         # Etiqueta y campo de entrada para el peso
-        self.label_peso = ctk.CTkLabel(self, text="Peso:")
+        self.label_peso = ctk.CTkLabel(options_frame, text="Peso:")
         self.label_peso.grid(row=2, column=0, padx=10, pady=5, sticky="e")
 
-        self.entry_peso = ctk.CTkEntry(self, state="disabled")
+        self.entry_peso = ctk.CTkEntry(options_frame, state="disabled")
         self.entry_peso.grid(row=2, column=1, padx=10, pady=5, sticky="w")
         self.entry_peso.bind("<KeyRelease>", self.enable_send_button)
 
         # Botón de enviar
-        self.button_send = ctk.CTkButton(self, text="Enviar", command=self.show_video_frame)
-        self.button_send.grid(row=3, columnspan=2, padx=10, pady=5)
+        self.button_send = ctk.CTkButton(options_frame, text="Enviar", command=self.show_video_frame)
+        self.button_send.grid(row=1, columnspan=2, padx=10, pady=5)
         self.button_send.grid_remove()  # Ocultar el botón al inicio
 
-        self.video_frame = ctk.CTkFrame(self, corner_radius=10, width=900, height=500)
-        self.video_frame.grid(row=4, columnspan=2, padx=10, pady=5, sticky="nesw")
+        # Barra de progreso
+        self.progressbar = ctk.CTkProgressBar(options_frame, orientation="horizontal", mode="indeterminate", determinate_speed=0.1, border_width=1, corner_radius=20, height=20)
+        self.progressbar.grid(row=5, columnspan=2, padx=10, pady=5)
+        self.progressbar.grid_remove()  # Ocultar la barra de progreso al inicio
+
+        options_frame.columnconfigure(0, weight=1)
+        options_frame.columnconfigure(1, weight=1)
+
+        options_frame.grid(row=0, column=0, columnspan=2, padx=10, pady=5, sticky="nesw")  
+
+        self.video_frame = ctk.CTkFrame(self, corner_radius=10, width=854, height=480)
+        self.video_frame.grid(row=1, padx=0, pady=5, sticky="nesw")
+
         self.video_label = ctk.CTkLabel(self.video_frame, text="")
         self.video_label.pack()
         self.video_frame.grid_remove()  # Ocultar el marco al inicio
 
-        # Barra de progreso
-        self.progressbar = ctk.CTkProgressBar(self, orientation="horizontal", mode="indeterminate", determinate_speed=0.1, border_width=1, corner_radius=20, height=20)
-        self.progressbar.grid(row=5, columnspan=2, padx=10, pady=5)
-        self.progressbar.grid_remove()  # Ocultar la barra de progreso al inicio
 
         self.repeticiones = ctk.CTkLabel(self, text="Repeticiones: 0")
         self.repeticiones.grid(row=5, columnspan=2, padx=10, pady=5)
         self.repeticiones.grid_remove()
 
-        # Variables para el video
-        self.video_cap = None
-        self.current_frame = None
-
-        # Factor de escala para las coordenadas
-        self.scale_x = None
-        self.scale_y = None
+        self.velocidad = ctk.CTkLabel(self, text="Velocidad: 0")
+        self.velocidad.grid(row=6, columnspan=2, padx=10, pady=5)
+        self.velocidad.grid_remove()
 
     def browse_video(self):
-        filename = filedialog.askopenfilename(filetypes=[("Video files", "*.MOV")])
+        filename = filedialog.askopenfilename(filetypes=[("Video files", "*.MOV;*.MP4;*.AVI")])
         if filename:
             self.video_cap = cv2.VideoCapture(filename)
             self.selected_video.set(filename.split("/")[-1])  
@@ -128,6 +136,7 @@ class App(ctk.CTk):
         df = pd.read_csv(file_path)
 
         self.repeticiones.grid()
+        self.velocidad.grid()
 
         # Obtener las coordenadas de las articulaciones del frame actual
         shoulder_points = [(int(row['Shoulder_X']) * self.scale_x, int(row['Shoulder_Y']) * self.scale_y) for index, row in df[df['Frame'] == self.video_cap.get(cv2.CAP_PROP_POS_FRAMES)].iterrows()]
@@ -158,7 +167,7 @@ class App(ctk.CTk):
             angles = [int(row['Angle']) for index, row in df[df['Frame'] == self.video_cap.get(cv2.CAP_PROP_POS_FRAMES)].iterrows()]
             angle = angles[0] if angles else None
             reps=[int(row['Reps']) for index, row in df[df['Frame'] == self.video_cap.get(cv2.CAP_PROP_POS_FRAMES)].iterrows()]
-                        
+            velocidad=[float(row['velocidad_instantanea']) for index, row in df[df['Frame'] == self.video_cap.get(cv2.CAP_PROP_POS_FRAMES)].iterrows()]           
             font = cv2.FONT_HERSHEY_COMPLEX
             cv2.putText(frame, f'Angulo: {angle}', (int(elbow_point[0]) + 10, int(elbow_point[1])), font, 0.5, (255, 255, 255), 1, cv2.LINE_AA)
 
@@ -166,6 +175,8 @@ class App(ctk.CTk):
             # Actualizar el label con las repeticiones
             if reps:
                 self.repeticiones.configure(text=f"Repeticiones: {reps[0]}")
+            if velocidad:
+                self.velocidad.configure(text=f"Velocidad: {round(velocidad[0],2)}m/s")
 
    
        # Convertir el frame modificado a formato adecuado para mostrar en la GUI
