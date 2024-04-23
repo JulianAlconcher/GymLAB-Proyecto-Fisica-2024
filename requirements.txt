@@ -3,3 +3,4 @@ mediapipe
 Pillow
 pandas
 moviepy
+customtkinter
