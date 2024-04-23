@@ -1,4 +1,7 @@
 opencv-python
-mediapipe
-Pillow
+numpy
 pandas
+mediapipe
+tk
+customtkinter
+Pillow
