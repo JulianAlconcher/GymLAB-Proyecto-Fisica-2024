@@ -8,7 +8,7 @@ from video_processing import get_landmarks
 
 # Importar las vistas
 from view.home_view import HomeView
-#from view.charts_view import ChartsView
+from view.chart_view import ChartsView
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("dark-blue")
@@ -46,8 +46,8 @@ class App(ctk.CTk):
         home_view.pack(fill=ctk.BOTH, expand=True)
 
         # Agregar la vista de los gráficos a la columna derecha
-        #charts_view = ChartsView(self.frame_right)  # Asumiendo que ChartsView es una clase existente
-        #charts_view.pack(fill=ctk.BOTH, expand=True)
+        chart_view = ChartsView(self.frame_right)  # Asumiendo que ChartsView es una clase existente
+        chart_view.pack(fill=ctk.BOTH, expand=True)
 
     def on_closing(self):
         self.destroy()

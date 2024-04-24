@@ -48,7 +48,7 @@ def get_landmarks(video_path):
 
             if shoulder and elbow and wrist:
                 angle = round(calcular_angulo(shoulder[0], shoulder[1], elbow[0], elbow[1], wrist[0], wrist[1]))
-                df = df.append({'Frame': frame_number,
+                df = df._append({'Frame': frame_number,
                                 'TimeStamp': cap.get(cv2.CAP_PROP_POS_MSEC)/1000,
                                 'Shoulder_X': shoulder[0], 'Shoulder_Y': shoulder[1],
                                 'Elbow_X': elbow[0], 'Elbow_Y': elbow[1],
