@@ -4,11 +4,14 @@ import customtkinter as ctk
 import cv2
 from PIL import Image, ImageTk
 import pandas as pd
-from video_processing import get_landmarks
+import numpy as np
+
 
 # Importar las vistas
 from view.home_view import HomeView
-from view.chart_view import ChartsView
+from view.chart_view import ChartsView, calcular_aceleracion, cargar_datos_desde_csv
+
+
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("dark-blue")
@@ -42,12 +45,22 @@ class App(ctk.CTk):
         self.frame_right.grid(row=0, column=1, sticky="nswe", padx=20, pady=20)
 
         # Agregar las vistas a la columna izquierda
-        home_view = HomeView(self.frame_left)  # Asumiendo que HomeView es una clase existente
+        home_view = HomeView(self.frame_left, app=self)  # Asumiendo que HomeView es una clase existente
         home_view.pack(fill=ctk.BOTH, expand=True)
 
         # Agregar la vista de los gráficos a la columna derecha
-        chart_view = ChartsView(self.frame_right)  # Asumiendo que ChartsView es una clase existente
-        chart_view.pack(fill=ctk.BOTH, expand=True)
+        self.chart_view = ChartsView(self.frame_right)
+        self.chart_view.pack(fill=ctk.BOTH, expand=True)
 
     def on_closing(self):
         self.destroy()
+
+    def handle_video_processed(self):
+        ruta_csv = "pose_data.csv"
+        datos = cargar_datos_desde_csv(ruta_csv)
+        datos['velocidad'] = np.sqrt(datos['vector_velocidad_x']**2 + datos['vector_velocidad_y']**2)
+        calcular_aceleracion(datos)
+        
+        # Obtener una instancia de ChartView y llamar a los métodos para trazar gráficos
+        self.chart_view.plot_velocity_over_time(datos)
+        self.chart_view.plot_acceleration_over_time(datos)

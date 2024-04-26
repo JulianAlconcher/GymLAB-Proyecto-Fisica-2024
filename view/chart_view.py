@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
-import plotly.graph_objs as go
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import customtkinter as ctk
 
 class ChartsView(ctk.CTkFrame):
@@ -10,26 +11,27 @@ class ChartsView(ctk.CTkFrame):
         self.build_ui()
 
     def build_ui(self):
-        # Aquí puedes agregar widgets adicionales si es necesario
+        self.fig, (self.ax1, self.ax2) = plt.subplots(2, 1, figsize=(8, 6))
+        self.canvas = FigureCanvasTkAgg(self.fig, master=self)
+        self.canvas.get_tk_widget().pack(side="top", fill="both", expand=True)
+        self.canvas.draw()
         pass
  
     def plot_velocity_over_time(self, data):
-        time = data['Frame']
-        velocity = np.sqrt(data['vector_velocidad_x']**2 + data['vector_velocidad_y']**2)
-        velocity_trace = go.Scatter(x=time, y=velocity, mode='lines', name='Velocity')
-        layout = go.Layout(title='Velocity Over Time', xaxis=dict(title='Time (s)'), yaxis=dict(title='Velocity (m/s)'))
-        fig = go.Figure(data=[velocity_trace], layout=layout)
-        fig.update_layout(title="Velocity Over Time")
-        fig.show()
+        self.ax1.clear()
+        self.ax1.plot(data['Frame'], np.sqrt(data['vector_velocidad_x']**2 + data['vector_velocidad_y']**2))
+        self.ax1.set_title('Velocity Over Time')
+        self.ax1.set_xlabel('Time (s)')
+        self.ax1.set_ylabel('Velocity (m/s)')
+        self.canvas.draw()
 
     def plot_acceleration_over_time(self, data):
-        time = data['Frame']
-        acceleration = data['Aceleracion']
-        acceleration_trace = go.Scatter(x=time, y=acceleration, mode='lines', name='Acceleration')
-        layout = go.Layout(title='Acceleration Over Time', xaxis=dict(title='Time (s)'), yaxis=dict(title='Acceleration (m/s^2)'))
-        fig = go.Figure(data=[acceleration_trace], layout=layout)
-        fig.update_layout(title="Acceleration Over Time")
-        fig.show()
+        self.ax2.clear()
+        self.ax2.plot(data['Frame'], data['Aceleracion'])
+        self.ax2.set_title('Acceleration Over Time')
+        self.ax2.set_xlabel('Time (s)')
+        self.ax2.set_ylabel('Acceleration (m/s^2)')
+        self.canvas.draw()
 
 # Dentro de la clase App
 def cargar_datos_desde_csv(ruta_csv):
@@ -48,8 +50,3 @@ datos['velocidad'] = np.sqrt(datos['vector_velocidad_x']**2 + datos['vector_velo
 
 # Calcular aceleración
 calcular_aceleracion(datos)
-
-# Llama a los métodos correspondientes en ChartsView para generar los gráficos
-chart_view = ChartsView()  
-chart_view.plot_velocity_over_time(datos)
-chart_view.plot_acceleration_over_time(datos)

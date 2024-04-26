@@ -8,8 +8,9 @@ import pandas as pd
 from video_processing import get_landmarks
 
 class HomeView(ctk.CTkFrame):
-    def __init__(self, master, **kwargs):
+    def __init__(self, master,app, **kwargs):
         super().__init__(master, **kwargs)
+        self.app=app
         self.build_ui()
 
     def build_ui(self):
@@ -109,6 +110,7 @@ class HomeView(ctk.CTkFrame):
         get_landmarks(video_path)
         self.progressbar.grid_remove()  # Ocultar la barra de progreso
         self.button_send.grid(row=3, columnspan=2, padx=10, pady=5)
+        self.app.handle_video_processed()
 
     def process_frame(self):
         ret, frame = self.video_cap.read()
