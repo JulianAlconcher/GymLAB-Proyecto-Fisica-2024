@@ -1,0 +1,9 @@
+opencv-python
+numpy
+pandas
+mediapipe
+tk
+customtkinter
+Pillow
+Flask
+Flask-CORS
