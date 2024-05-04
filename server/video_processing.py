@@ -64,6 +64,7 @@ def get_landmarks(video_path):
     cap.release()
 
     df.to_csv('pose_data.csv', index=False)
+    df.to_json('pose_data.json', orient='records')
     append_velocity_to_csv()
     print(df)
     return True
