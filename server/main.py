@@ -1,5 +1,6 @@
 import csv
 import io
+import logging
 from flask import Flask, request, jsonify, send_file
 import os
 from flask_cors import CORS
@@ -7,18 +8,15 @@ from flask_cors import CORS
 from make_video import process_video
 from video_processing import get_landmarks
 
-app = Flask(__name__)
-CORS(app, resources={r"/upload": {"origins": "http://localhost:5173"}})
-CORS(app, resources={r"/getFile": {"origins": "http://localhost:5173"}})
-CORS(app, resources={r"/getVideo": {"origins": "*"}})
+app = Flask(__name__, static_folder='static')
+logging.basicConfig(level=logging.DEBUG)
+app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024  # Ajusta el límite de tamaño de carga (por ejemplo, 100 MB)
+app.config['SEND_FILE_MAX_RANGE'] = None
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
-def add_cors_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    response.headers['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS'
-    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
-    return response
+UPLOAD_FOLDER = 'static'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-UPLOAD_FOLDER = 'uploads'
 if not os.path.exists(UPLOAD_FOLDER):
     os.makedirs(UPLOAD_FOLDER)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -57,14 +55,18 @@ def get_file():
 @app.route("/getVideo", methods=["GET"])
 def get_video():
     try:
+        logging.info("Received request for video")
         process_video()
-        video_path = "processed_video.mp4"
+        video_path = "static/processed_video.mp4"
         if os.path.exists(video_path):
-            return send_file(video_path, as_attachment=True, mimetype='video/mp4')
+            logging.info("Sending video file")
+            return send_file(video_path, as_attachment=False)
         else:
+            logging.error("Video file not found")
             return jsonify({"error": "Video not found"}), 404
     except Exception as e:
+        logging.error(f"Error processing or sending video: {e}")
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8080)
+    app.run(debug=True, port=8080,)

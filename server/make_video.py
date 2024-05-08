@@ -7,12 +7,12 @@ def count_rows(csv_file_path):
     return num_rows
 
 def process_video():
-    input_video_path = "uploads/chali-bicep-1.MOV"
+    input_video_path = "static/fran_biceps_3s.mp4"
     csv_file_path = "pose_data.csv"
-    output_video_path = "processed_video.mp4"
+    output_video_path = "static/processed_video.mp4"
     cap = cv2.VideoCapture(input_video_path)
     df = pd.read_csv(csv_file_path)
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    fourcc = -1
     fps = cap.get(cv2.CAP_PROP_FPS)
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
