@@ -33,7 +33,7 @@ def upload():
             video_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
             print("Info received:", exercise, weight, filename)
-            csv_state = get_landmarks("uploads/" + filename)
+            csv_state = get_landmarks("static/" + filename)
             
             if csv_state is None: 
                 return jsonify({"error": "No video file provided"}), 400
@@ -55,8 +55,11 @@ def get_file():
 @app.route("/getVideo", methods=["GET"])
 def get_video():
     try:
+        input_video_path = request.args.get('video_path')
+        if input_video_path is None:
+            return jsonify({"error": "video_path parameter is missing"}), 400
         logging.info("Received request for video")
-        process_video()
+        process_video(input_video_path)
         video_path = "static/processed_video.mp4"
         if os.path.exists(video_path):
             logging.info("Sending video file")

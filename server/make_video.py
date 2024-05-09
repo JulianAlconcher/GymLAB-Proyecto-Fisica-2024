@@ -6,8 +6,9 @@ def count_rows(csv_file_path):
     num_rows = df.shape[0]  # Obtener la cantidad de filas
     return num_rows
 
-def process_video():
-    input_video_path = "static/fran_biceps_3s.mp4"
+def process_video(video_path):
+    input_video_path = "static/" + video_path
+    print("Input video path:", input_video_path)
     csv_file_path = "pose_data.csv"
     output_video_path = "static/processed_video.mp4"
     cap = cv2.VideoCapture(input_video_path)
