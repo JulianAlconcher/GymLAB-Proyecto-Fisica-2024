@@ -2,19 +2,37 @@
 ## Getting Started
 
 Inicializar la aplicacion:
-1. Debemos iniciar el servidor haciendo
---> Las librerias en la parte del server son
+
+1. SERVER SIDE
    + cv2
    + pandas
    + mediapipe
    + flask
    + flask_cors
-   + os 
+   + os
+
+   Setear el server
+    ```sh
+   cd .\server\
+   <env_name>\Scripts\activate
+   pip install -r requirements.txt 
+   ```
+  
+   Para correr el server
    ```sh
    cd .\server\
    python .\main.py
    ```
-3. Debemos iniciar el cliente haciendo
+3. CLIENT SIDE
+
+
+   Setear el client
+    ```sh
+   cd .\client\
+   npm install 
+   ```
+
+   Correr el client
    ```sh
    cd .\client\
    npm run dev
