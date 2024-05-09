@@ -14,7 +14,7 @@ Inicializar la aplicacion:
    Setear el server
     ```sh
    cd .\server\
-   <env_name>\Scripts\activate
+   venv\Scripts\activate
    pip install -r requirements.txt 
    ```
   
