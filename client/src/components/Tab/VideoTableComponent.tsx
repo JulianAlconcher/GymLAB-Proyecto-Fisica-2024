@@ -1,16 +1,19 @@
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
-import fileService from "../../service/FileService"
+import React, { useState, useEffect, FormEvent, ChangeEvent, useRef } from 'react';
+import fileService from "../../service/FileService";
 import VideoComponent from './VideoComponent';
 import ExerciseOptions from './ExerciseOptions';
 import { ExerciseOption } from '../../enums/enumsExercise';
 
-function VideoTableComponent(): JSX.Element {
+interface VideoTableProps {
+  setShowGraph: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function VideoTableComponent({ setShowGraph }: VideoTableProps): JSX.Element {
   const [exercise, setExercise] = useState<ExerciseOption | null>(ExerciseOption.Bicep);
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [weight, setWeight] = useState<string>("20");
   const [videoURL, setVideoURL] = useState<string | null>(null); // Estado para almacenar la URL del video
   const videoRef = useRef<HTMLVideoElement>(null);
-
 
   useEffect(() => {
     // Verificar si el componente de video se ha montado
@@ -24,74 +27,71 @@ function VideoTableComponent(): JSX.Element {
     }
   }, [videoURL]);
 
-  
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-        // Verificar si todos los campos están completos
-        console.log(exercise);
-        console.log(videoFile);
-        console.log(weight);
-        if (!exercise || !videoFile || !weight) {
-            alert('Por favor, complete todos los campos.');
-            return;
-        }
+      // Verificar si todos los campos están completos
+      if (!exercise || !videoFile || !weight) {
+        alert('Por favor, complete todos los campos.');
+        return;
+      }
 
-        // Crear el objeto FormData
-        const formData = new FormData();
-        formData.append('exercise', exercise);
-        formData.append('video', videoFile);
-        formData.append('weight', weight);
+      // Crear el objeto FormData
+      const formData = new FormData();
+      formData.append('exercise', exercise);
+      formData.append('video', videoFile);
+      formData.append('weight', weight);
 
-        // Subir el archivo al servidor
-        await uploadFile(formData);
+      // Subir el archivo al servidor
+      await uploadFile(formData);
 
-        // Obtener la respuesta del servidor y convertirla a JSON
-        const responseData = await getFileFromServer();
-        const jsonData = await responseData.json();
-        console.log(jsonData);
+      // Obtener la respuesta del servidor y convertirla a JSON
+      const responseData = await getFileFromServer();
+      const jsonData = await responseData.json();
+      console.log(jsonData);
 
-        // Obtener el video del servidor y manejar la respuesta
-       await getVideoFromServerAndHandleResponse();
-        
+      // Obtener el video del servidor y manejar la respuesta
+      await getVideoFromServerAndHandleResponse();
+
+      // Activar showGraph para mostrar GraficosComponent
+      setShowGraph(true);
     } catch (error) {
-        console.error('Error handling submit:', error);
-        alert('Ocurrió un error al procesar el formulario. Por favor, inténtelo de nuevo.');
+      console.error('Error handling submit:', error);
+      alert('Ocurrió un error al procesar el formulario. Por favor, inténtelo de nuevo.');
     }
-};
+  };
 
-// Función para subir el archivo al servidor
-const uploadFile = async (formData: FormData): Promise<void> => {
+  // Función para subir el archivo al servidor
+  const uploadFile = async (formData: FormData): Promise<void> => {
     try {
-        await fileService.uploadFile(formData);
+      await fileService.uploadFile(formData);
     } catch (error) {
-        console.error('Error uploading file:', error);
-        throw error;
+      console.error('Error uploading file:', error);
+      throw error;
     }
-};
+  };
 
-// Función para obtener el archivo del servidor
-const getFileFromServer = async (): Promise<Response> => {
+  // Función para obtener el archivo del servidor
+  const getFileFromServer = async (): Promise<Response> => {
     try {
-        return await fileService.getFileFromServer();
+      return await fileService.getFileFromServer();
     } catch (error) {
-        console.error('Error getting file from server:', error);
-        throw error;
+      console.error('Error getting file from server:', error);
+      throw error;
     }
-};
+  };
 
-// Función para obtener el video del servidor y manejar la respuesta (Lo podria separar en dos pero fue)
-const getVideoFromServerAndHandleResponse = async () => {
+  // Función para obtener el video del servidor y manejar la respuesta
+  const getVideoFromServerAndHandleResponse = async () => {
     try {
-        const responseGetVideo = await fileService.getVideoFromServer(videoFile?.name as string);
-        handleVideoResponse(responseGetVideo, setVideoURL);
-        
+      const responseGetVideo = await fileService.getVideoFromServer(videoFile?.name as string);
+      handleVideoResponse(responseGetVideo, setVideoURL);
     } catch (error) {
-        console.error('Error fetching video:', error);
-        throw error;
+      console.error('Error fetching video:', error);
+      throw error;
     }
-};
+  };
 
   const handleVideoResponse = async (response: Response, setVideoURL: React.Dispatch<React.SetStateAction<string | null>>): Promise<void> => {
     if (response.ok) {
@@ -101,8 +101,7 @@ const getVideoFromServerAndHandleResponse = async () => {
     } else {
       console.error('Failed to get video from server');
     }
-};
-
+  };
 
   return (
     <>
@@ -131,11 +130,11 @@ const getVideoFromServerAndHandleResponse = async () => {
           <button type="submit" className="rounded-md m-2 bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Enviar</button>
         </form>
         {videoURL && (
-         <VideoComponent videoRef={videoRef} />
+          <VideoComponent videoRef={videoRef} />
         )}
       </div>
     </>
-  )
+  );
 }
 
 export default VideoTableComponent;

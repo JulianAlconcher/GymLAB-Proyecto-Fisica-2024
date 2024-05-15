@@ -3,7 +3,7 @@ import pandas as pd
 import mediapipe as mp
 
 from utils.utils import calcular_angulo, calculate_distance_between_vectors, contador_repeticiones, transform_mesaured_vector_to_mts
-from utils.velocity import append_velocity_to_csv
+from utils.velocity import append_velocity_to_csv_and_json
 
 
 
@@ -65,7 +65,7 @@ def get_landmarks(video_path):
 
     df.to_csv('pose_data.csv', index=False)
     df.to_json('pose_data.json', orient='records')
-    append_velocity_to_csv()
+    append_velocity_to_csv_and_json()
     print(df)
     return True
 

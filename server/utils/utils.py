@@ -49,7 +49,7 @@ def calculate_distance_between_vectors(v1, v2):
 def calculate_velocity(dist, time_start, time_end):
     return dist / (time_end - time_start)
 
-def caculate_velocity_vector(v1,v2,t1,t2): 
+def calculate_velocity_vector(v1,v2,t1,t2): 
     x_component = (v2[0] - v1[0]) / (t2 - t1) 
     y_component = (v2[1] - v1[1]) / (t2 - t1) 
 
