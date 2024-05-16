@@ -76,7 +76,9 @@ function GraficosComponent(): JSX.Element {
           xAxisName='Tiempo (segs)' 
           yAxisName= 'Aceleracion (mts/segs^2)'
           x={acelerationData.tiempo} 
-          y={acelerationData.aceleracionInstantanea} 
+          y={acelerationData.aceleracionInstantanea}
+          
+          
         />
         } 
       </div>

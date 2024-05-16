@@ -12,7 +12,7 @@ export default function VideoComponent(props : VideoComponentProps) {
 
     
   return (
-    <video className="m-2" ref={props.videoRef} controls autoPlay />
+    <video className="m-2 border-2 border-black rounded-md w-full " ref={props.videoRef} controls autoPlay />
 
   )
 }

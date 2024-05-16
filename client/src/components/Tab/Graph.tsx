@@ -2,6 +2,7 @@ import Plot from 'react-plotly.js';
 
 interface GraphProps {
     title : string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     type : any
     xAxisName : string
     yAxisName : string
@@ -25,9 +26,12 @@ function Graphic( {title, type, xAxisName, yAxisName, x, y}: GraphProps) : JSX.E
                 ]}
                 layout={{title : title,
                          xaxis: { title: xAxisName },
-                         yaxis: { title: yAxisName }
+                         yaxis: { title: yAxisName },
+                         plot_bgcolor:"black",
+                         paper_bgcolor:"#FFF3",
+                         font: { color: 'white' }
                 }}
-                style={{ width: '100%', height: '400px' }}
+                style={{ width: '100%', height: '400px', backgroundColor: 'black' }}
                 config={{ responsive: true }}
                 useResizeHandler={true}
             />
