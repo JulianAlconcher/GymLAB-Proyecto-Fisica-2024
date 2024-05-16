@@ -1,0 +1,29 @@
+{
+    "builds": [
+      {
+        "src": "server/main.py",
+        "use": "@vercel/python",
+        "config": {
+          "pythonVersion": "3.11.0"
+        }
+      },
+      {
+        "src": "client/package.json",
+        "use": "@vercel/static-build",
+        "config": {
+          "distDir": "build"
+        }
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "/server/main.py"
+      },
+      {
+        "src": "/(.*)",
+        "dest": "/client/build/$1"
+      }
+    ]
+  }
+  
