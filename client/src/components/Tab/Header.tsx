@@ -13,7 +13,7 @@ function Header(){
 
     return(
         <div>
-        <header className="bg-black text-white py-4">
+        <header className="bg-black text-white py-4 px-6">
         <div className="container mx-auto flex justify-between items-center">
           <div className= "flex items-center">
             <img src={pesa} alt="Gym Icon" className="h-8 mr-2" />
