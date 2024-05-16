@@ -27,11 +27,9 @@ function Graphic( {title, type, xAxisName, yAxisName, x, y}: GraphProps) : JSX.E
                 layout={{title : title,
                          xaxis: { title: xAxisName },
                          yaxis: { title: yAxisName },
-                         plot_bgcolor:"black",
-                         paper_bgcolor:"#FFF3",
-                         font: { color: 'white' }
+                         font: { color: 'black' }
                 }}
-                style={{ width: '100%', height: '400px', backgroundColor: 'black' }}
+                style={{ width: '100%', height: '400px'}}
                 config={{ responsive: true }}
                 useResizeHandler={true}
             />

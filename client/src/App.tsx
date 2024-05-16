@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="min-h-screen bg-white">
       <Header />
-      <div className="grid grid-cols-2 grid-flow-col gap-4 bg-[#333333]">
+      <div className="grid grid-cols-2 grid-flow-col gap-4 ">
         <VideoTableComponent setShowGraph={setShowGraph} /> {}
         {showGraph && <GraphTableComponent />} {}
       </div>
