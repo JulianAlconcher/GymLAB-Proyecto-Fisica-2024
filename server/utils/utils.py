@@ -54,3 +54,12 @@ def calculate_velocity_vector(v1,v2,t1,t2):
     y_component = (v2[1] - v1[1]) / (t2 - t1) 
 
     return x_component, y_component
+
+def calculate_aceleration(variation_vel, time_start, time_end):
+    return variation_vel / (time_end - time_start)
+
+def calculate_aceleration_vector(v1,v2,t1,t2): 
+    x_component = (v2[0] - v1[0]) / (t2 - t1) 
+    y_component = (v2[1] - v1[1]) / (t2 - t1) 
+
+    return x_component, y_component

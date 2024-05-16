@@ -46,6 +46,7 @@ def process_video(video_path):
         cv2.circle(frame, wrist_point, 5, (255, 0, 0), -1)     
         cv2.line(frame, shoulder_point, elbow_point, (0, 255, 255), 2)  
         cv2.line(frame, elbow_point, wrist_point, (255, 255, 0), 2)  
+        
 
         out.write(frame)
 

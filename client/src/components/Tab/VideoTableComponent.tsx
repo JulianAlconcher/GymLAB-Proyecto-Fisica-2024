@@ -105,7 +105,7 @@ function VideoTableComponent({ setShowGraph }: VideoTableProps): JSX.Element {
 
   return (
     <>
-      <div className="m-5 bg-gray-200 border-2 border-black rounded-lg p4 h-full">
+      <div className="m-5 p4 h-full">
         <form onSubmit={handleSubmit}>
           <div className="sm:col-span-3">
             <div className="m-2"> Ejercicio:
