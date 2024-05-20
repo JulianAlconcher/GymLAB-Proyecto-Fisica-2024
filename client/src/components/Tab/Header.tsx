@@ -1,5 +1,6 @@
 import { useState } from "react";
 import pesa from "/pesa.png"
+import { Link } from "react-router-dom";
 
 function Header(){
 
@@ -21,7 +22,7 @@ function Header(){
           </div>
           <nav className="flex space-x-4">
           <button className="hover:text-gray-300" onClick={toggleModal}>Guía de uso</button>
-            <a href="#" className="hover:text-gray-300">Sobre nosotros</a>
+           <Link to="/about" className="hover:text-gray-300">Sobre nosotros</Link>
             {/* Aaca podemos agregar mas botones, deje estos como una prueba */}
           </nav>
         </div>
