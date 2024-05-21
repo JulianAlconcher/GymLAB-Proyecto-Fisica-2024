@@ -3,20 +3,17 @@ import fileService from "../../service/FileService"
 import VideoComponent from './VideoComponent';
 import ExerciseOptions from './ExerciseOptions';
 import { ExerciseOption } from '../../enums/enumsExercise';
-import CircularProgress from '@mui/material/CircularProgress';
-
 
 interface VideoTableComponentProps {
   setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
-function VideoTableComponent({ setRefresh }: VideoTableComponentProps): JSX.Element {
+function VideoTableComponent({ setRefresh,setLoading }: VideoTableComponentProps): JSX.Element {
   const [exercise, setExercise] = useState<ExerciseOption | null>(ExerciseOption.Bicep);
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [weight, setWeight] = useState<string>("20");
   const [videoURL, setVideoURL] = useState<string | null>(null); // Estado para almacenar la URL del video
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [loading, setLoading] = useState(false);
-
 
   useEffect(() => {
     // Verificar si el componente de video se ha montado
@@ -139,7 +136,6 @@ const getVideoFromServerAndHandleResponse = async () => {
         {videoURL && (
          <VideoComponent videoRef={videoRef} />
         )}
-        <div>{loading ? <CircularProgress /> : ""}</div>
       </div>
     </>
   )
