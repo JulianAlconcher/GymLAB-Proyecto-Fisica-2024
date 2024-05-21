@@ -3,11 +3,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 export const Loading = () => {
   const frasesMotivacionales = [
+    "Calentando los músculos...",
     "Pasando de cartesianas a polares...",
-    "Creando el video y los graficos...",
-    "Que divertida es la fisica!!",
+    "Cargando la barra...",
     "Derivando la velocidad, derivando la posicion...",
-    "Ya estamos eh, ya estamos..."
   ];
 
   const [indiceFrase, setIndiceFrase] = useState(0);
