@@ -3,6 +3,8 @@ import fileService from "../../service/FileService"
 import VideoComponent from './VideoComponent';
 import ExerciseOptions from './ExerciseOptions';
 import { ExerciseOption } from '../../enums/enumsExercise';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 interface VideoTableComponentProps {
   setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
@@ -13,6 +15,7 @@ function VideoTableComponent({ setRefresh }: VideoTableComponentProps): JSX.Elem
   const [weight, setWeight] = useState<string>("20");
   const [videoURL, setVideoURL] = useState<string | null>(null); // Estado para almacenar la URL del video
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [loading, setLoading] = useState(false);
 
 
   useEffect(() => {
@@ -30,7 +33,7 @@ function VideoTableComponent({ setRefresh }: VideoTableComponentProps): JSX.Elem
   
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    setLoading(true);
     try {
         // Verificar si todos los campos están completos
         if (!exercise || !videoFile || !weight) {
@@ -100,6 +103,7 @@ const getVideoFromServerAndHandleResponse = async () => {
       const blob = await response.blob();
       const videoURL = URL.createObjectURL(blob);
       setVideoURL(videoURL);
+      setLoading(false);
     } else {
       console.error('Failed to get video from server');
     }
@@ -135,6 +139,7 @@ const getVideoFromServerAndHandleResponse = async () => {
         {videoURL && (
          <VideoComponent videoRef={videoRef} />
         )}
+        <div>{loading ? <CircularProgress /> : ""}</div>
       </div>
     </>
   )
