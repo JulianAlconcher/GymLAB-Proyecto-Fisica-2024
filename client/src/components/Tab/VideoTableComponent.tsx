@@ -4,6 +4,10 @@ import VideoComponent from './VideoComponent';
 import ExerciseOptions from './ExerciseOptions';
 import { ExerciseOption } from '../../enums/enumsExercise';
 
+interface VideoTableComponent{
+  setShowGraph: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 function VideoTableComponent(): JSX.Element {
   const [exercise, setExercise] = useState<ExerciseOption | null>(ExerciseOption.Bicep);
   const [videoFile, setVideoFile] = useState<File | null>(null);
@@ -103,7 +107,7 @@ const getVideoFromServerAndHandleResponse = async () => {
 
   return (
     <>
-      <div className="m-5 bg-slate-500 h-full">
+      <div className="m-5 bg-gray-500 h-full">
         <form onSubmit={handleSubmit}>
           <div className="sm:col-span-3">
             <div className="m-2"> Ejercicio:

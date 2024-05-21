@@ -3,6 +3,9 @@ import { useState, useEffect } from 'react';
 import fileService from "../../service/FileService";
 import Graphic from './Graph';
 
+interface GraficosComponent {
+  setShowGraph: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 function GraficosComponent(): JSX.Element {
   const [velocityData, setVelocityData] = useState<{ tiempo: number[]; velocidadInstantanea: number[] }>({ tiempo: [], velocidadInstantanea: [] });

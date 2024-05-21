@@ -7,6 +7,7 @@ import HomePage from './components/Tab/Pages/HomePage';
 import AboutPage from './components/Tab/Pages/AboutPage';
 import ContactPage from './components/Tab/Pages/ContactPage';
 import MainPage from "./components/Tab/Pages/MainPage";
+import GuidePage from "./components/Tab/Pages/GuidePage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/about" Component={AboutPage} />
           <Route path="/main" Component={MainPage} /> 
           <Route path="/contact" Component={ContactPage} />
+          <Route path="/guide" Component={GuidePage} />
     </Routes>  
     </div>
     </Router>
