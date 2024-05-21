@@ -4,11 +4,10 @@ import VideoComponent from './VideoComponent';
 import ExerciseOptions from './ExerciseOptions';
 import { ExerciseOption } from '../../enums/enumsExercise';
 
-interface VideoTableComponent{
-  setShowGraph: React.Dispatch<React.SetStateAction<boolean>>;
+interface VideoTableComponentProps {
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-function VideoTableComponent(): JSX.Element {
+function VideoTableComponent({ setRefresh }: VideoTableComponentProps): JSX.Element {
   const [exercise, setExercise] = useState<ExerciseOption | null>(ExerciseOption.Bicep);
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [weight, setWeight] = useState<string>("20");
@@ -48,10 +47,12 @@ function VideoTableComponent(): JSX.Element {
         // Subir el archivo al servidor
         await uploadFile(formData);
 
-        // Obtener la respuesta del servidor y convertirla a JSON
+        // Obtener la respuesta del servidor y convertirla a JSON 
         const responseData = await getFileFromServer();
         const jsonData = await responseData.json();
         console.log(jsonData);
+
+        setRefresh(prev => !prev);
 
         // Obtener el video del servidor y manejar la respuesta
        await getVideoFromServerAndHandleResponse();
@@ -107,7 +108,7 @@ const getVideoFromServerAndHandleResponse = async () => {
 
   return (
     <>
-      <div className="m-5 bg-gray-500 h-full">
+      <div className="m-5">
         <form onSubmit={handleSubmit}>
           <div className="sm:col-span-3">
             <div className="m-2"> Ejercicio:

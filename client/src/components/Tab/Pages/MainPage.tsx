@@ -1,18 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import VideoTableComponent from '../VideoTableComponent';
 import GraphTableComponent from '../GraphTableComponent';
 
 const MainPage: React.FC = () => {
+  const [refresh, setRefresh] = useState(false);
 
-    const [showGraph, setShowGraph] = useState(false); 
-    
-    return (
-    <div className="grid grid-cols-2 grid-flow-col gap-4 ">
-    <VideoTableComponent setShowGraph={setShowGraph} /> {}
-    {showGraph && <GraphTableComponent />} {}
-  </div>  
-  )
-  };
+  return (
+    <div className="grid grid-cols-2 grid-flow-col gap-4">
+      <VideoTableComponent setRefresh={setRefresh} />
+      <GraphTableComponent key={refresh ? "refresh-true" : "refresh-false"} />
+    </div>
+  );
+};
 
-  
-  export default MainPage;
+export default MainPage;

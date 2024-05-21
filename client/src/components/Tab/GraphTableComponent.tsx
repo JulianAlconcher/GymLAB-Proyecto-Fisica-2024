@@ -63,16 +63,6 @@ function GraficosComponent(): JSX.Element {
           y={velocityData.velocidadInstantanea} 
         />
         {
-          /*
-        <Graphic 
-          title='Posicion en funcion del tiempo' 
-          type='scatter'
-          xAxisName='Tiempo (segs)' 
-          yAxisName= 
-          x={} 
-          y={} 
-        />
-        */
         <Graphic 
           title='Aceleracion en funcion del tiempo' 
           type='scatter'
