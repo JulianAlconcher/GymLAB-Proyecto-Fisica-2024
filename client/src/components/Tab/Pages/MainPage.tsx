@@ -11,8 +11,8 @@ const MainPage: React.FC = () => {
     <div>
     <div>{loading ? <Loading /> : ""}</div>
       <div className="grid grid-cols-2 grid-flow-col gap-4">
-        <VideoTableComponent setRefresh={setRefresh} setLoading={setLoading}/>
-        <GraphTableComponent key={refresh ? "refresh-true" : "refresh-false"} />
+        {!loading && <VideoTableComponent setRefresh={setRefresh} setLoading={setLoading}/>}
+        {!loading && <GraphTableComponent key={refresh ? "refresh-true" : "refresh-false"} />}
       </div>
     </div>
   );

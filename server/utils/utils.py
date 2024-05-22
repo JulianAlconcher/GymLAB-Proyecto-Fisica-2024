@@ -63,3 +63,21 @@ def calculate_aceleration_vector(v1,v2,t1,t2):
     y_component = (v2[1] - v1[1]) / (t2 - t1) 
 
     return x_component, y_component
+
+def getLevelConstant(training_level):
+    if(training_level == "Principiante"):
+        return 0.016
+    if(training_level == "Intermedio"):
+        return 0.020
+    if(training_level == "Avanzado"):
+        return 0.024
+    
+def calculate_forearm_weight(weight, genre, height, training_level):
+    avarage_height = 0
+    if(genre == "Masculino"):
+        avarage_height = 171
+        forearm_weight = weight * getLevelConstant(training_level) * ((1 + (height - avarage_height)/(avarage_height)))
+    if(genre == "Femenino"):
+        avarage_height = 160
+        forearm_weight = weight * getLevelConstant(training_level) * ((1 + (height - avarage_height)/(avarage_height)))
+    return round(forearm_weight, 2)
