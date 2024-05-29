@@ -98,13 +98,13 @@ export const StartDialog: React.FC<StartDialogProps> = ({ isOpen, onClose }) => 
 
     return (
         <Dialog open={isOpen} onOpenChange={onClose}>
-            <DialogContent className="sm:max-w-md">
-                <DialogHeader>
+            <DialogContent className="sm:max-w-md bg-black">
+                <DialogHeader className='text-white text-center'>
                     <DialogTitle>Formulario de Ejercicios</DialogTitle>
                     <DialogDescription>Completa los datos solicitados para probar tus ejercicios</DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleSubmit}>
-                    <div className="grid flex-1 gap-2">
+                    <div className="grid flex-1 gap-2 text-white">
                         <div className="grid grid-cols-2 w-full gap-4 items-center">
                             <label className="w-1/3">Peso:</label>
                             <input className="w-2/3 focus:ring-0 sm:text-sm sm:leading-6" style={{ width: '100px' }} value={weight} onChange={(event: ChangeEvent<HTMLInputElement>) => setWeight(event.target.value)} />
@@ -124,8 +124,8 @@ export const StartDialog: React.FC<StartDialogProps> = ({ isOpen, onClose }) => 
                             }} />
                         </div>
                     </div>
-                    <DialogFooter>
-                        <Button variant="contained" type="submit">Comenzar</Button>
+                    <DialogFooter className='mt-5'>
+                        <Button className='w-full' variant="contained" type="submit">Comenzar</Button>
                     </DialogFooter>
                 </form>
             </DialogContent>
