@@ -29,14 +29,14 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def upload():
     try:
         exercise = request.form.get('exercise')
-        weight = request.form.get('weight')
+        exercice_weight = request.form.get('weight')
         video_file = request.files['video']
         
         if video_file:
             filename = video_file.filename
             video_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-            print("Info received:", exercise, weight, filename)
+            print("Info received:", exercise, exercice_weight, filename)
             csv_state = get_landmarks("static/" + filename)
             print("Agrego columnas de velocidad y aceleracion")
             csv_state = append_velocity_to_csv_and_json()
@@ -45,7 +45,8 @@ def upload():
             csv_state = suavizar_columna('pose_data.csv', 'velocidad_instantanea')
             print("Intento suavizaar la columna de aceleracion")
             csv_state = suavizar_columna('pose_data.csv', 'aceleracion_instantanea')
-            #calculate_forces()
+            print("Intento calcular la fuerza")
+            csv_state = calculate_forces()
             
             if csv_state is None: 
                 return jsonify({"error": "No video file provided"}), 400
