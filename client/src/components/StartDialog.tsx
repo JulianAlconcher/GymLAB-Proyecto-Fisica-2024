@@ -104,20 +104,21 @@ export const StartDialog: React.FC<StartDialogProps> = ({ isOpen, onClose }) => 
                     <DialogDescription>Completa los datos solicitados para probar tus ejercicios</DialogDescription>
                 </DialogHeader>
                 <form onSubmit={handleSubmit}>
-                    <div className="grid flex-1 gap-2 text-white">
+                    <div className="grid flex-1 gap-2 ">
                         <div className="grid grid-cols-2 w-full gap-4 items-center">
-                            <label className="w-1/3">Peso:</label>
-                            <input className="w-2/3 focus:ring-0 sm:text-sm sm:leading-6" style={{ width: '100px' }} value={weight} onChange={(event: ChangeEvent<HTMLInputElement>) => setWeight(event.target.value)} />
+                            <label className="w-1/3 text-white">Peso:</label>
+                            <input className="w-2/3 focus:ring-0 sm:text-sm sm:leading-6" 
+                            style={{ width: '100px' }} value={weight} onChange={(event: ChangeEvent<HTMLInputElement>) => setWeight(event.target.value)} />
                         </div>
                         <div className="grid grid-cols-2 w-full items-center">
-                            <label className="w-1/3">Ejercicio:</label>
+                            <label className="w-1/3 text-white">Ejercicio:</label>
                             <div className="w-auto">
                                 <ExerciseOptions value={exercise || null} onChange={setExercise} />
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4 w-full items-center">
-                            <label className="w-1/3">Video:</label>
-                            <input id="file-upload" name="file-upload" type="file" className="w-auto" onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                            <label className="w-1/3 text-white">Video:</label>
+                            <input id="file-upload" name="file-upload" type="file" className="w-auto text-white" onChange={(event: ChangeEvent<HTMLInputElement>) => {
                                 if (event.target.files) {
                                     setVideoFile(event.target.files[0]);
                                 }
