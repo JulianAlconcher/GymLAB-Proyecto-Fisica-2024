@@ -1,5 +1,7 @@
 import math
 import numpy as np
+import pandas as pd
+from scipy.signal import savgol_filter
 
 MAX_RANGE = 160
 MIN_RANGE = 50
@@ -86,3 +88,26 @@ def calculate_forearm_weight(weight, genre, height, training_level):
 
 def grades_to_radians(grades):
     return grades * (math.pi / 180)
+
+def suavizar_columna(csv_file, column_name, window_length=21, polyorder=2):
+    
+    # Leer el archivo CSV
+    df = pd.read_csv(csv_file)
+    
+    # Verificar si la columna existe
+    if column_name not in df.columns:
+        raise ValueError(f"La columna '{column_name}' no se encuentra en el archivo CSV.")
+    
+    # Aplicar el filtro Savitzky-Golay
+    suavizado = savgol_filter(df[column_name], window_length, polyorder)
+    
+    # Crear el nombre de la nueva columna
+    new_column_name = f"{column_name}_suavizada"
+    
+    # Agregar la nueva columna al DataFrame
+    df[new_column_name] = suavizado
+    
+    # Guardar el DataFrame con la nueva columna (opcional)
+    df.to_csv('pose_data.csv', index=False)
+    
+    return df

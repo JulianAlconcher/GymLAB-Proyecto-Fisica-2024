@@ -1,5 +1,6 @@
 import pandas as pd
-from utils.utils import calculate_velocity_vector, calculate_distance_between_vectors, calculate_velocity, grades_to_radians
+from utils.utils import calculate_velocity_vector, calculate_distance_between_vectors, calculate_velocity, grades_to_radians, suavizar_columna
+import scipy as sp
 
 max_velocity = 0
 
@@ -66,8 +67,8 @@ def append_velocity_to_csv_and_json():
     # Guardar el DataFrame modificado en CSV y JSON
     df.to_csv('pose_data.csv', index=False)
     df.to_json('pose_data.json', orient='records')
-
-    print(df)
+    print("Intento suavizaar la columna de velocidad")
+    suavizar_columna('pose_data.csv', 'velocidad_instantanea')
 
 def get_max_velocity():
     return max_velocity

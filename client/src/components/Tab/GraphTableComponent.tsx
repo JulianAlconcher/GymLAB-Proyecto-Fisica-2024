@@ -8,9 +8,9 @@ interface GraficosComponent {
 }
 
 function GraficosComponent(): JSX.Element {
-  const [velocityData, setVelocityData] = useState<{ tiempo: number[]; velocidadInstantanea: number[] }>({ tiempo: [], velocidadInstantanea: [] });
-  const [acelerationData, setAcelerationData] = useState<{ tiempo: number[]; aceleracionInstantanea: number[] }>({ tiempo: [], aceleracionInstantanea: [] });
-
+  const [velocitySData, setVelocitySData] = useState<{ tiempo: number[]; velocitySuavizedData: number[] }>({ tiempo: [], velocitySuavizedData: [] });
+  const [acelerationSData, setAcelerationSData] = useState<{ tiempo: number[]; aceleracionSuavizedInstantanea: number[] }>({ tiempo: [], aceleracionSuavizedInstantanea: [] });
+  
   useEffect(() => {
       fetchData();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -24,19 +24,13 @@ function GraficosComponent(): JSX.Element {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const tiempo = jsonData.map((frame: any) => frame.TimeStamp);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const velocidadInstantanea = jsonData.map((frame: any) => frame.velocidad_instantanea);
-
+      const velocitySuavizedData = jsonData.map((frame: any) => frame.velocidad_instantanea_suavizada);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const aceleracionInstantanea = jsonData.map((frame: any) => frame.aceleracion_instantanea);
+      const aceleracionSuavizedInstantanea = jsonData.map((frame: any) => frame.aceleracion_instantanea_suavizada);
 
-      setVelocityData({ tiempo, velocidadInstantanea });
+      setVelocitySData({ tiempo, velocitySuavizedData });
+      setAcelerationSData({ tiempo, aceleracionSuavizedInstantanea });
 
-      setAcelerationData({ tiempo, aceleracionInstantanea });
-
-      /*
-        Hacer lo mismo para los graficos de posicion y aceleracion, 
-        para pasarle los datos al componente Graphic.
-      */
     } catch (error) {
       console.error('Error fetching velocity data:', error);
     }
@@ -54,26 +48,23 @@ function GraficosComponent(): JSX.Element {
   return (
     <>
       <div className="m-5  p-4 grid grid-rows-3 grid-cols-1 gap-1 h-full">
-        <Graphic 
-          title='Velocidad Instantanea en funcion del tiempo' 
+         <Graphic 
+          title='Velocidad Instantanea SUAVIZADA en funcion del tiempo' 
           type='scatter'
           xAxisName='Tiempo (segs)' 
-          yAxisName='Velocidad (mts/segs)'
-          x={velocityData.tiempo} 
-          y={velocityData.velocidadInstantanea} 
+          yAxisName='Velocidad SUAVIZADA (mts/segs)'
+          x={velocitySData.tiempo} 
+          y={velocitySData.velocitySuavizedData} 
         />
-        {
         <Graphic 
-          title='Aceleracion en funcion del tiempo' 
+          title='Aceleracion SUAVIZADA en funcion del tiempo' 
           type='scatter'
           xAxisName='Tiempo (segs)' 
-          yAxisName= 'Aceleracion (mts/segs^2)'
-          x={acelerationData.tiempo} 
-          y={acelerationData.aceleracionInstantanea}
-          
-          
+          yAxisName= 'Aceleracion SUAVIZADA (mts/segs^2)'
+          x={acelerationSData.tiempo} 
+          y={acelerationSData.aceleracionSuavizedInstantanea}          
         />
-        } 
+        
       </div>
     </>
   );

@@ -1,5 +1,5 @@
 import pandas as pd
-from utils.utils import calculate_aceleration, calculate_aceleration_vector, calculate_distance_between_vectors, grades_to_radians
+from utils.utils import calculate_aceleration, calculate_aceleration_vector, calculate_distance_between_vectors, grades_to_radians, suavizar_columna
 
 max_acceleration = 0
 
@@ -56,6 +56,7 @@ def append_aceleration_to_csv_and_json():
     df.to_json('pose_data.json', orient='records')
 
     print(df)
+    suavizar_columna('pose_data.csv', 'aceleracion_instantanea')
 
 def get_max_aceleration():
     return max_acceleration
