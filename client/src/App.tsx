@@ -8,6 +8,7 @@ import AboutPage from './components/Tab/Pages/AboutPage';
 import ContactPage from './components/Tab/Pages/ContactPage';
 import MainPage from "./components/Tab/Pages/MainPage";
 import GuidePage from "./components/Tab/Pages/GuidePage";
+import Loading from "./components/Loading";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/main" Component={MainPage} /> 
           <Route path="/contact" Component={ContactPage} />
           <Route path="/guide" Component={GuidePage} />
+          <Route path="/loading" Component={Loading}/>
     </Routes>  
     </div>
     </Router>

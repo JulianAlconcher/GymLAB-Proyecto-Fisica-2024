@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import VideoTableComponent from '../VideoTableComponent';
 import GraphTableComponent from '../GraphTableComponent';
-import Loading from '../../Loading';
+import { useLocation } from 'react-router-dom';
 
 const MainPage: React.FC = () => {
-  const [refresh, setRefresh] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const location = useLocation();
+  
+  const { videoURL } = location.state || {};
 
   return (
     <div>
-    <div>{loading ? <Loading /> : ""}</div>
       <div className="grid grid-cols-2 grid-flow-col gap-4">
-        <VideoTableComponent setRefresh={setRefresh} setLoading={setLoading}/>
-        {!loading && <GraphTableComponent key={refresh ? "refresh-true" : "refresh-false"} />}
+        <VideoTableComponent videoURL={videoURL} />
+        <GraphTableComponent />
       </div>
     </div>
   );
