@@ -6,6 +6,10 @@ import os
 from flask_cors import CORS
 
 from make_video import process_video
+from utils.aceleration import append_aceleration_to_csv_and_json
+from utils.forces import calculate_forces
+from utils.utils import suavizar_columna
+from utils.velocity import append_velocity_to_csv_and_json
 from video_processing import get_landmarks
 
 app = Flask(__name__, static_folder='static')
@@ -34,6 +38,14 @@ def upload():
 
             print("Info received:", exercise, weight, filename)
             csv_state = get_landmarks("static/" + filename)
+            print("Agrego columnas de velocidad y aceleracion")
+            csv_state = append_velocity_to_csv_and_json()
+            csv_state = append_aceleration_to_csv_and_json()
+            print("Intento suavizaar la columna de velocidad")
+            csv_state = suavizar_columna('pose_data.csv', 'velocidad_instantanea')
+            print("Intento suavizaar la columna de aceleracion")
+            csv_state = suavizar_columna('pose_data.csv', 'aceleracion_instantanea')
+            #calculate_forces()
             
             if csv_state is None: 
                 return jsonify({"error": "No video file provided"}), 400

@@ -89,6 +89,7 @@ def grades_to_radians(grades):
 
 def suavizar_columna(csv_file, column_name, window_length=21, polyorder=2):
     
+    print("Inicio el proceso de suavizado, con la columna " + column_name)
     # Leer el archivo CSV
     df = pd.read_csv(csv_file)
     
@@ -107,5 +108,6 @@ def suavizar_columna(csv_file, column_name, window_length=21, polyorder=2):
     
     # Guardar el DataFrame con la nueva columna (opcional)
     df.to_csv('pose_data.csv', index=False)
+    df.to_json('pose_data.json', orient='records')
     
     return df

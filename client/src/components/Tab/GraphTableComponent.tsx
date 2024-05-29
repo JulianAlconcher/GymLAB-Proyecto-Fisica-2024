@@ -21,6 +21,8 @@ function GraficosComponent(): JSX.Element {
       const responseData = await getFileFromServer();
       const jsonData = await responseData.json();
 
+      console.log(jsonData);
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const tiempo = jsonData.map((frame: any) => frame.TimeStamp);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

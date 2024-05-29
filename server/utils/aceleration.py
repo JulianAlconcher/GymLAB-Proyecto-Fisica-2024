@@ -54,9 +54,7 @@ def append_aceleration_to_csv_and_json():
     # Guardar el DataFrame modificado en CSV y JSON
     df.to_csv('pose_data.csv', index=False)
     df.to_json('pose_data.json', orient='records')
-
-    print(df)
-    suavizar_columna('pose_data.csv', 'aceleracion_instantanea')
+    
 
 def get_max_aceleration():
     return max_acceleration

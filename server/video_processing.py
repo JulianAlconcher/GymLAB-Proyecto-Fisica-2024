@@ -67,9 +67,6 @@ def get_landmarks(video_path):
 
     df.to_csv('pose_data.csv', index=False)
     df.to_json('pose_data.json', orient='records')
-    append_velocity_to_csv_and_json()
-    append_aceleration_to_csv_and_json()
-    calculate_forces()
     print(df)
     return True
 
