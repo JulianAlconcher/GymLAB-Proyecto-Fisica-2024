@@ -20,14 +20,14 @@ export const StartDialog: React.FC<StartDialogProps> = ({ isOpen, onClose }) => 
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        navigate('/loading');
+        
         try {
             // Verificar si todos los campos están completos
             if (!exercise || !videoFile || !weight) {
                 alert('Por favor, complete todos los campos.');
                 return;
             }
-    
+            navigate('/loading');
             // Crear el objeto FormData
             const formData = new FormData();
             formData.append('exercise', exercise);
