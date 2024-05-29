@@ -15,6 +15,7 @@ export const StartDialog: React.FC<StartDialogProps> = ({ isOpen, onClose }) => 
     const [exercise, setExercise] = useState<ExerciseOption | null>(ExerciseOption.Bicep);
     const [videoFile, setVideoFile] = useState<File | null>(null);
     const [weight, setWeight] = useState<string>("20");
+    const [height, setHeight] = useState<string>("20");
     const navigate = useNavigate();
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -107,8 +108,13 @@ export const StartDialog: React.FC<StartDialogProps> = ({ isOpen, onClose }) => 
                     <div className="grid flex-1 gap-2 ">
                         <div className="grid grid-cols-2 w-full gap-4 items-center">
                             <label className="w-1/3 text-white">Peso:</label>
-                            <input className="w-2/3 focus:ring-0 sm:text-sm sm:leading-6" 
+                            <input placeholder="83 kg" className="w-2/3 p-1 focus:ring-0 sm:text-sm sm:leading-6" 
                             style={{ width: '100px' }} value={weight} onChange={(event: ChangeEvent<HTMLInputElement>) => setWeight(event.target.value)} />
+                        </div>
+                        <div className="grid grid-cols-2 w-full gap-4 items-center">
+                            <label className="w-1/3 text-white">Altura(cm):</label>
+                            <input placeholder="183 cm" className="w-2/3 focus:ring-0  p-1 sm:text-sm sm:leading-6" 
+                            style={{ width: '100px' }} value={height} onChange={(event: ChangeEvent<HTMLInputElement>) => setHeight(event.target.value)} />
                         </div>
                         <div className="grid grid-cols-2 w-full items-center">
                             <label className="w-1/3 text-white">Ejercicio:</label>
