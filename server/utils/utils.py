@@ -110,4 +110,4 @@ def suavizar_columna(csv_file, column_name, window_length=21, polyorder=2):
     df.to_csv('pose_data.csv', index=False)
     df.to_json('pose_data.json', orient='records')
     
-    return df
+    return True

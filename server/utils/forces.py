@@ -63,3 +63,4 @@ def calculate_forces(weight=80, genre="Masculino", height=1.70, training_level="
     
     df.to_csv('pose_data.csv', index=False)
     df.to_json('pose_data.json', orient='records')
+    return True

@@ -67,6 +67,7 @@ def append_velocity_to_csv_and_json():
     # Guardar el DataFrame modificado en CSV y JSON
     df.to_csv('pose_data.csv', index=False)
     df.to_json('pose_data.json', orient='records')
+    return True
 
 def get_max_velocity():
     return max_velocity
