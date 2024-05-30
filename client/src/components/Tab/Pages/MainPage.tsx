@@ -1,6 +1,5 @@
 import React from 'react';
 import VideoTableComponent from '../VideoTableComponent';
-import GraphTableComponent from '../GraphTableComponent';
 import { useLocation } from 'react-router-dom';
 
 const MainPage: React.FC = () => {
@@ -10,9 +9,8 @@ const MainPage: React.FC = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-2 grid-flow-col gap-4">
+      <div className="">
         <VideoTableComponent videoURL={videoURL} />
-        <GraphTableComponent />
       </div>
     </div>
   );
