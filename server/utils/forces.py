@@ -8,7 +8,7 @@ def calculate_forces(weight=80, genre="Masculino", height=1.70, training_level="
     radius_bicep = 0.04
     df = pd.read_csv('pose_data.csv')
     print("Inicio calculo de fuerzas con el siguiente df: ", df)
-
+    print("El peso de la mancuera es: ", mass_weight)
     max_force = 0
     avergae_force = 0
     g = -9.81
@@ -50,11 +50,11 @@ def calculate_forces(weight=80, genre="Masculino", height=1.70, training_level="
         # Entonces obtenemos los momentos de los pesos.
         moment_weight = distance_forearm * mass_weight * g * np.sin(angle_forearm_g)
         moment_forearm = radius_forearm * mass_forearm * g * np.sin(angle_forearm_g)
-        # print("moment_weight: ", moment_weight)
         
         # # Cálculo de la fuerza del bicep
         force_bicep = (sum_moment - moment_weight - moment_forearm) / (radius_bicep * np.sin(angle_rad))        
-        
+        if(force_bicep > max_force):
+            max_force = force_bicep
         bicep_forces.append(force_bicep)       
 
     # Agregar la lista de fuerzas como una nueva columna en el DataFrame
@@ -62,4 +62,7 @@ def calculate_forces(weight=80, genre="Masculino", height=1.70, training_level="
     
     df.to_csv('pose_data.csv', index=False)
     df.to_json('pose_data.json', orient='records')
+    
+    print("Termino calculo de fuerzas, la fuerza MAXIMA ALCANZADA ES : ", max_force)
+    df['max_fuerza_bicep'] = max_force
     return True

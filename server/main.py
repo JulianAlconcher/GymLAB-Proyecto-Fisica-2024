@@ -46,7 +46,7 @@ def upload():
             print("Intento suavizaar la columna de aceleracion")
             csv_state = suavizar_columna('pose_data.csv', 'aceleracion_instantanea')
             print("Intento calcular la fuerza")
-            csv_state = calculate_forces()
+            csv_state = calculate_forces(mass_weight= float(exercice_weight))
             
             if csv_state is None: 
                 return jsonify({"error": "No video file provided"}), 400
