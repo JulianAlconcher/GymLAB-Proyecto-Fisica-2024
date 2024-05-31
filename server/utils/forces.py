@@ -4,29 +4,27 @@ import math as math
 
 from utils.utils import calculate_forearm_weight
 
-radius_bicep = 0.04
-df = pd.read_csv('pose_data.csv')
-
-max_force = 0
-avergae_force = 0
-
 def calculate_forces(weight=80, genre="Masculino", height=1.70, training_level="Principiante", distance_forearm=0.30, mass_weight=7.5):
+    radius_bicep = 0.04
+    df = pd.read_csv('pose_data.csv')
+    print("Inicio calculo de fuerzas con el siguiente df: ", df)
+
+    max_force = 0
+    avergae_force = 0
     g = -9.81
     
     # Longitud del centro de masa
     radius_forearm = distance_forearm / 2
-    print("radius_forearm: ", radius_forearm)
     
     # Obtenemos la masa del brazo
     mass_forearm = calculate_forearm_weight(weight, genre, height, training_level)
-    print("mass_forearm: ", mass_forearm)
    
     # Calcular momento de inercia
     inertia_weight = mass_weight * distance_forearm ** 2
     inertia_forearm = mass_forearm * radius_forearm ** 2
-    print("inertia_weight: ", inertia_weight)
-    
 
+    # Inicializar la lista para almacenar las fuerzas del bíceps
+    bicep_forces = []
     
     # Obtenemos alpha (angulo entre r y F) apartir de theta. (Como son opuesto por el vertice, restamos pi - angulo (en radianes))
     for index, row in df.iterrows():
@@ -56,10 +54,11 @@ def calculate_forces(weight=80, genre="Masculino", height=1.70, training_level="
         
         # # Cálculo de la fuerza del bicep
         force_bicep = (sum_moment - moment_weight - moment_forearm) / (radius_bicep * np.sin(angle_rad))        
-        df.loc[df['Frame'] == current_frame, "fuerza_bicep"] = force_bicep
-               
+        
+        bicep_forces.append(force_bicep)       
 
-    
+    # Agregar la lista de fuerzas como una nueva columna en el DataFrame
+    df['fuerza_bicep'] = bicep_forces
     
     df.to_csv('pose_data.csv', index=False)
     df.to_json('pose_data.json', orient='records')
