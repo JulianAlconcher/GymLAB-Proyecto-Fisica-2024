@@ -67,11 +67,11 @@ def calculate_aceleration_vector(v1,v2,t1,t2):
     return x_component, y_component
 
 def getLevelConstant(training_level):
-    if(training_level == "Principiante"):
+    if(training_level == 0):
         return 0.016
-    if(training_level == "Intermedio"):
+    if(training_level == 1):
         return 0.020
-    if(training_level == "Avanzado"):
+    if(training_level == 2):
         return 0.024
     
 def calculate_forearm_weight(weight, genre, height, training_level):

@@ -4,13 +4,18 @@ import math as math
 
 from utils.utils import calculate_forearm_weight
 
-def calculate_forces(weight=80, genre="Masculino", height=1.70, training_level="Principiante", distance_forearm=0.30, mass_weight=7.5):
+def calculate_forces(weight=80, genre="Masculino", height=1.70, training_level=1, distance_forearm=0.30, mass_weight=7.5):
     radius_bicep = 0.04
     df = pd.read_csv('pose_data.csv')
     print("Inicio calculo de fuerzas con el siguiente df: ", df)
     print("El peso de la mancuera es: ", mass_weight)
+    print("El peso de la persona es: ", weight)
+    print("La altura de la persona es: ", height)
+    print("La distancia entre el hombro y la muneca es: ", distance_forearm)
+    print("El nivel de entrenamiento es: ", training_level)
+    print("El genero es: ", genre)
+    
     max_force = 0
-    avergae_force = 0
     g = -9.81
     
     # Longitud del centro de masa

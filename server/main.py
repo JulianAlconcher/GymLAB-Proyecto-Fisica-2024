@@ -29,14 +29,17 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def upload():
     try:
         exercise = request.form.get('exercise')
-        exercice_weight = request.form.get('weight')
+        weight = request.form.get('weight')
+        weightDumbbell = request.form.get('weightDumbbell')
+        height = request.form.get('height')
+        experience = request.form.get('experience')
         video_file = request.files['video']
         
         if video_file:
             filename = video_file.filename
             video_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-            print("Info received:", exercise, exercice_weight, filename)
+            print("Info received:", exercise, weightDumbbell, filename, weight, height, experience)
             csv_state = get_landmarks("static/" + filename)
             print("Agrego columnas de velocidad y aceleracion")
             csv_state = append_velocity_to_csv_and_json()
@@ -46,7 +49,9 @@ def upload():
             print("Intento suavizaar la columna de aceleracion")
             csv_state = suavizar_columna('pose_data.csv', 'aceleracion_instantanea')
             print("Intento calcular la fuerza")
-            csv_state = calculate_forces(mass_weight= float(exercice_weight))
+            experienceNumber = getExperience(experience)
+            print("La experiencia es: ", experienceNumber)
+            csv_state = calculate_forces(height=float(height), weight= float(weight), mass_weight= float(weightDumbbell), training_level=experienceNumber)
             
             if csv_state is None: 
                 return jsonify({"error": "No video file provided"}), 400
@@ -83,6 +88,16 @@ def get_video():
     except Exception as e:
         logging.error(f"Error processing or sending video: {e}")
         return jsonify({"error": str(e)}), 500
+    
+    
+def getExperience(experience):
+    if experience == "Principiante":
+        return 0
+    elif experience == "Intermedio":
+        return 1
+    elif experience == "Avanzado":
+        return 2
+    
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080,)
