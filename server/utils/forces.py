@@ -59,10 +59,15 @@ def calculate_forces(weight=80, genre="Masculino", height=1.70, training_level="
 
     # Agregar la lista de fuerzas como una nueva columna en el DataFrame
     df['fuerza_bicep'] = bicep_forces
+    print("Termino calculo de fuerzas, la fuerza MAXIMA ALCANZADA ES : ", max_force)
+    df['max_fuerza_bicep'] = pd.Series([max_force] + [np.nan] * (len(df) - 1))
+    
+    average_force = df['fuerza_bicep'].mean()
+    print("El promedio de la fuerza del bíceps es: ", average_force)
+    df['average_fuerza_bicep'] = pd.Series([average_force] + [np.nan] * (len(df) - 1))
     
     df.to_csv('pose_data.csv', index=False)
     df.to_json('pose_data.json', orient='records')
     
-    print("Termino calculo de fuerzas, la fuerza MAXIMA ALCANZADA ES : ", max_force)
-    df['max_fuerza_bicep'] = max_force
+    
     return True
