@@ -34,12 +34,13 @@ def upload():
         height = request.form.get('height')
         experience = request.form.get('experience')
         video_file = request.files['video']
+        forearmDistance = request.form.get('forearmDistance')
         
         if video_file:
             filename = video_file.filename
             video_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-            print("Info received:", exercise, weightDumbbell, filename, weight, height, experience)
+            print("Info received:", exercise, weightDumbbell, filename, weight, height, experience, forearmDistance)
             csv_state = get_landmarks("static/" + filename)
             print("Agrego columnas de velocidad y aceleracion")
             csv_state = append_velocity_to_csv_and_json()
@@ -51,7 +52,7 @@ def upload():
             print("Intento calcular la fuerza")
             experienceNumber = getExperience(experience)
             print("La experiencia es: ", experienceNumber)
-            csv_state = calculate_forces(height=float(height), weight= float(weight), mass_weight= float(weightDumbbell), training_level=experienceNumber)
+            csv_state = calculate_forces(height=float(height), weight= float(weight), mass_weight= float(weightDumbbell), training_level=experienceNumber, distance_forearm=float(forearmDistance))
             
             if csv_state is None: 
                 return jsonify({"error": "No video file provided"}), 400

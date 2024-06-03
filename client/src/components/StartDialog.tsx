@@ -19,6 +19,7 @@ export const StartDialog: React.FC<StartDialogProps> = ({ isOpen, onClose }) => 
     const [weight, setWeight] = useState<string>("70");
     const [weightDumbbell, setWeightDumbbell] = useState<string>("7.5");
     const [height, setHeight] = useState<string>("170");
+    const [forearmDistance, setForearmDistance] = useState<string>("30");
     const navigate = useNavigate();
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -39,6 +40,7 @@ export const StartDialog: React.FC<StartDialogProps> = ({ isOpen, onClose }) => 
             formData.append('weight', weight);
             formData.append('weightDumbbell', weightDumbbell);
             formData.append('height', height);
+            formData.append('forearmDistance', forearmDistance);
 
     
             // Subir el archivo al servidor
@@ -114,34 +116,39 @@ export const StartDialog: React.FC<StartDialogProps> = ({ isOpen, onClose }) => 
                 <form onSubmit={handleSubmit}>
                     <div className="grid flex-1 gap-2 ">
                         <div className="grid grid-cols-2 w-full gap-4 items-center">
-                            <label className="w-1/3 text-white">Peso corporal:</label>
+                            <label className="w-2/3 text-white">Peso corporal:</label>
                             <input placeholder="83 kg" className="w-2/3 p-1 focus:ring-0 sm:text-sm sm:leading-6" 
                             style={{ width: '100px' }} value={weight} onChange={(event: ChangeEvent<HTMLInputElement>) => setWeight(event.target.value)} />
                         </div>
                         <div className="grid grid-cols-2 w-full gap-4 items-center">
-                            <label className="w-1/3 text-white">Altura(cm):</label>
+                            <label className="w-2/3 text-white">Altura(cm):</label>
                             <input placeholder="183 cm" className="w-2/3 focus:ring-0  p-1 sm:text-sm sm:leading-6" 
                             style={{ width: '100px' }} value={height} onChange={(event: ChangeEvent<HTMLInputElement>) => setHeight(event.target.value)} />
                         </div>
                         <div className="grid grid-cols-2 w-full gap-4 items-center">
-                            <label className="w-1/3 text-white">Peso mancuerna:</label>
+                            <label className="w-2/3 text-white">Peso mancuerna:</label>
                             <input placeholder="183 cm" className="w-2/3 focus:ring-0  p-1 sm:text-sm sm:leading-6" 
                             style={{ width: '100px' }} value={weightDumbbell} onChange={(event: ChangeEvent<HTMLInputElement>) => setWeightDumbbell(event.target.value)} />
                         </div>
+                        <div className="grid grid-cols-2 w-full gap-4 items-center">
+                            <label className="w-2/3 text-white">Medida del Antebrazo(cm)</label>
+                            <input placeholder="183 cm" className="w-2/3 focus:ring-0  p-1 sm:text-sm sm:leading-6" 
+                            style={{ width: '100px' }} value={forearmDistance} onChange={(event: ChangeEvent<HTMLInputElement>) => setForearmDistance(event.target.value)} />
+                        </div>
                         <div className="grid grid-cols-2 w-full items-center">
-                            <label className="w-1/3 text-white">Ejercicio:</label>
+                            <label className="w-2/3 text-white">Ejercicio:</label>
                             <div className="w-auto">
                                 <ExerciseOptions value={exercise || null} onChange={setExercise} />
                             </div>
                         </div>
                         <div className="grid grid-cols-2 w-full items-center">
-                            <label className="w-1/3 text-white">Nivel de Experiencia:</label>
+                            <label className="w-2/3 text-white">Nivel de Experiencia:</label>
                             <div className="w-auto">
                                 <NivelExperienciaOptions value={experience || null} onChange={setExperience} />
                             </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4 w-full items-center">
-                            <label className="w-1/3 text-white">Video:</label>
+                            <label className="w-2/3 text-white">Video:</label>
                             <input id="file-upload" name="file-upload" type="file" className="w-auto text-white" onChange={(event: ChangeEvent<HTMLInputElement>) => {
                                 if (event.target.files) {
                                     setVideoFile(event.target.files[0]);

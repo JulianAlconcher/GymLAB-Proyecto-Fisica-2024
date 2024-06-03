@@ -4,8 +4,9 @@ import math as math
 
 from utils.utils import calculate_forearm_weight
 
-def calculate_forces(weight=80, genre="Masculino", height=1.70, training_level=1, distance_forearm=0.30, mass_weight=7.5):
+def calculate_forces(weight=80, genre="Masculino", height=1.70, training_level=1, distance_forearm=30, mass_weight=7.5):
     radius_bicep = 0.04
+    distance_forearm = distance_forearm / 100
     df = pd.read_csv('pose_data.csv')
     print("Inicio calculo de fuerzas con el siguiente df: ", df)
     print("El peso de la mancuera es: ", mass_weight)
