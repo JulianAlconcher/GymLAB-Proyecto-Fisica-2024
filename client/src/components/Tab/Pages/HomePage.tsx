@@ -26,10 +26,10 @@ function PaginaInicio() {
               </button>
               <p className="text-lg text-gray-500">O prueba uno de nuestros ejemplos</p>
               <div className="grid grid-cols-4 gap-2 w-full">
-                  <CardExercise imagePath='/EjemploBiceps4.png' exerciseName='Curl Biceps' description='Ejemplo curl de biceps parado con mancuernas de 7.5kg'/>
-                  <CardExercise imagePath='/EjemploBiceps3.png' exerciseName='Sentadillas' description='Ejemplo curl de biceps parado con mancuernas de 10kg'/>
-                  <CardExercise imagePath='/EjemploBiceps2.png' exerciseName='Press Plano' description='Ejemplo curl de biceps parado con mancuernas de 12.5kg'/>
-                  <CardExercise imagePath='/EjemploBiceps.png' exerciseName='Press Inclinado' description='Ejemplo curl de biceps parado con mancuernas de 15kg'/>
+                  <CardExercise imagePath='/EjemploBiceps4.png' exerciseName='Curl Biceps 7.5kg' description='Ejemplo curl de biceps parado con mancuernas de 7.5kg'/>
+                  <CardExercise imagePath='/EjemploBiceps3.png' exerciseName='Curl Biceps 10kg' description='Ejemplo curl de biceps parado con mancuernas de 10kg'/>
+                  <CardExercise imagePath='/EjemploBiceps2.png' exerciseName='Curl Biceps 12.5kg' description='Ejemplo curl de biceps parado con mancuernas de 12.5kg'/>
+                  <CardExercise imagePath='/EjemploBiceps.png' exerciseName='Curl Biceps 15kg' description='Ejemplo curl de biceps parado con mancuernas de 15kg'/>
               </div>
           </div>
       </div>
