@@ -6,3 +6,10 @@ export enum ExerciseOption {
     PressBancoInclinado = "Press banco inclinado",
    
 }
+
+export enum NivelExperienciaOption {
+    Principiante = "Principiante",
+    Intermedio = "Intermedio",
+    Avanzado = "Avanzado"
+}
+
