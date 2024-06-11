@@ -19,8 +19,7 @@ function PaginaInicio() {
       <div className="flex flex-col items-center justify-center h-screen bg-gray-200">
           <StartDialog isOpen={dialog} onClose={handleCloseDialog} />
           <div className="text-center">
-              <h1 className="text-4xl font-bold mt-3">GymLAB</h1>
-              <p className="text-lg text-gray-600 mb-8">¡Testea vos mismo tus ejercicios del gimnasio!</p>
+              <p className="text-lg text-gray-100 mb-8">¡Testea vos mismo tus ejercicios del gimnasio!</p>
               <button className="bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded mb-4" onClick={handleStartClick}>
                   Comienza YA
               </button>
