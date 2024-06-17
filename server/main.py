@@ -6,6 +6,8 @@ import os
 from flask_cors import CORS
 
 from make_video import process_video
+from utils.createPDF import create_pdf
+from utils.saveGraphics import saveGraphics
 from utils.aceleration import append_aceleration_to_csv_and_json
 from utils.forces import calculate_forces
 from utils.utils import suavizar_columna
@@ -53,6 +55,9 @@ def upload():
             experienceNumber = getExperience(experience)
             print("La experiencia es: ", experienceNumber)
             csv_state = calculate_forces(height=float(height), weight= float(weight), mass_weight= float(weightDumbbell), training_level=experienceNumber, distance_forearm=float(forearmDistance))
+            print("Guardo graficos en el servidor ")
+            csv_state = saveGraphics()
+            csv_state = create_pdf(weight=float(weight), height=float(height), training_level=experienceNumber, distance_forearm=float(forearmDistance), mass_weight= float(weightDumbbell))
             
             if csv_state is None: 
                 return jsonify({"error": "No video file provided"}), 400

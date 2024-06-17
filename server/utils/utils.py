@@ -90,24 +90,30 @@ def grades_to_radians(grades):
 def suavizar_columna(csv_file, column_name, window_length=21, polyorder=2):
     
     print("Inicio el proceso de suavizado, con la columna " + column_name)
-    # Leer el archivo CSV
     df = pd.read_csv(csv_file)
     
-    # Verificar si la columna existe
     if column_name not in df.columns:
         raise ValueError(f"La columna '{column_name}' no se encuentra en el archivo CSV.")
     
-    # Aplicar el filtro Savitzky-Golay
     suavizado = savgol_filter(df[column_name], window_length, polyorder)
     
-    # Crear el nombre de la nueva columna
     new_column_name = f"{column_name}_suavizada"
     
-    # Agregar la nueva columna al DataFrame
     df[new_column_name] = suavizado
     
-    # Guardar el DataFrame con la nueva columna (opcional)
     df.to_csv('pose_data.csv', index=False)
     df.to_json('pose_data.json', orient='records')
     
     return True
+
+GRAVITY = 9.8
+def get_potencial_energy(mass,height):
+    return mass * GRAVITY * height
+
+def get_kinetic_energy(mass,velocity):
+    kinetic_energy = 0.5 * mass * (velocity**2)
+    print(kinetic_energy)
+    return kinetic_energy
+
+def get_mechanical_energy(mass,height,velocity):
+    return get_potencial_energy(mass,height) + get_kinetic_energy(mass,velocity)
