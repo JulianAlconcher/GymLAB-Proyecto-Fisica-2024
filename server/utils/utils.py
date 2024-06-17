@@ -66,6 +66,14 @@ def calculate_aceleration_vector(v1,v2,t1,t2):
 
     return x_component, y_component
 
+def getExperience(experience):
+    if experience == 0:
+        return "Principiante"
+    elif experience == 1:
+        return "Intermedio"
+    elif experience == 2:
+        return "Avanzado"
+
 def getLevelConstant(training_level):
     if(training_level == 0):
         return 0.016
