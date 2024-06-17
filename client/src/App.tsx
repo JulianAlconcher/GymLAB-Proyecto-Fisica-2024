@@ -9,6 +9,7 @@ import ContactPage from './components/Tab/Pages/ContactPage';
 import MainPage from "./components/Tab/Pages/MainPage";
 import GuidePage from "./components/Tab/Pages/GuidePage";
 import Loading from "./components/Loading";
+import DemoPage from './components/Tab/DemoPage';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/contact" Component={ContactPage} />
           <Route path="/guide" Component={GuidePage} />
           <Route path="/loading" Component={Loading}/>
+          <Route path="/demo" Component={DemoPage} />
     </Routes>  
     </div>
     </Router>
