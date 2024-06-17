@@ -27,9 +27,9 @@ function PaginaInicio() {
               <p className="text-lg text-gray-500">O prueba uno de nuestros ejemplos</p>
               <div className='flex flex-grow'>
                 <div className="grid grid-cols-4 gap-2 w-full">
-                <CardExercise imagePath='/EjemploBiceps4.png' exerciseName='Curl Biceps 7.5kg' description='Ejemplo curl de biceps parado con mancuernas de 7.5kg' videoURL='/processed_video.mp4' dataURL='/pose_data.json' />
-                <CardExercise imagePath='/EjemploBiceps3.png' exerciseName='Curl Biceps 10kg' description='Ejemplo curl de biceps parado con mancuernas de 10kg' videoURL='/processed_video.mp4' dataURL='/pose_data.json' />
-                <CardExercise imagePath='/EjemploBiceps2.png' exerciseName='Curl Biceps 12.5kg' description='Ejemplo curl de biceps parado con mancuernas de 12.5kg' videoURL='/processed_video.mp4' dataURL='/pose_data.json' />
+                <CardExercise imagePath='/EjemploBiceps4.png' exerciseName='Curl Biceps 7.5kg' description='Ejemplo curl de biceps parado con mancuernas de 7.5kg' videoURL='/7.5.mp4' dataURL='/7.5.json' />
+                <CardExercise imagePath='/EjemploBiceps3.png' exerciseName='Curl Biceps 10kg' description='Ejemplo curl de biceps parado con mancuernas de 10kg' videoURL='/10.mp4' dataURL='/10.json' />
+                <CardExercise imagePath='/EjemploBiceps2.png' exerciseName='Curl Biceps 12.5kg' description='Ejemplo curl de biceps parado con mancuernas de 12.5kg' videoURL='/12.5.mp4' dataURL='/12.5.json' />
                 <CardExercise imagePath='/EjemploBiceps.png' exerciseName='Curl Biceps 15kg' description='Ejemplo curl de biceps parado con mancuernas de 15kg' videoURL='/processed_video.mp4' dataURL='/pose_data.json' />
                 </div>
               </div>
