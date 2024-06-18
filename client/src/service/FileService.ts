@@ -35,11 +35,35 @@ const getFileFromServer = async () : Promise<Response> => {
     }
 }
 
+const getPDFFromServer = async (): Promise<Response> => {
+    try {
+        const response = await fetch('http://localhost:8080/getPDF', { method: 'GET' });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response;
+    } catch (error) {
+        console.error('Error fetching PDF from server', error);
+        throw error;
+    }
+}
+
+const getDEMOPDFFromServer = async (formData: FormData) : Promise<Response> => {
+    try {
+      const response = await fetch('http://localhost:8080/getPDF', { method: 'GET', body: formData });
+     return response
+    } catch (error) {
+      console.error('Error uploading data:', error);
+      throw error
+    }
+  };
+
 
 
 export default {
     uploadFile,
     getVideoFromServer,
     getFileFromServer,
-    
+    getPDFFromServer,
+    getDEMOPDFFromServer
 }

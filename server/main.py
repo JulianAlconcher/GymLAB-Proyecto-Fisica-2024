@@ -95,6 +95,21 @@ def get_video():
         logging.error(f"Error processing or sending video: {e}")
         return jsonify({"error": str(e)}), 500
     
+@app.route("/getPDF", methods=["GET"])
+def get_pdf():
+    print("RESPONDO CON  el PDF")
+    try:
+        file = "analisis.pdf"
+        if os.path.exists(file):
+            logging.info("Sending video file")
+            return send_file(file, as_attachment=True)
+        else:
+            logging.error("Video file not found")
+            return jsonify({"error": "Video not found"}), 404
+    except Exception as e:
+        logging.error(f"Error processing or sending video: {e}")
+        return jsonify({"error": str(e)}), 500
+    
     
 def getExperience(experience):
     if experience == "Principiante":

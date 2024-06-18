@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import Graphic from './Graph';  
@@ -49,6 +50,8 @@ const DemoPage: React.FC = () => {
     fetchData();
   }, [dataURL]);
 
+ 
+
   return (
     <div className="m-5 grid grid-cols-2 gap-4">
       <div>
@@ -75,11 +78,12 @@ const DemoPage: React.FC = () => {
             currentTime={currentTime}
           />
         </div>
-        <div className="mt-4">
+        <div className="mt-4 mb-4 grid grid-cols-2 gap-2">
           <Link to="/">
-            <button className="px-4 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-700">
+            <button className="px-4 py-2 w-full bg-blue-500 text-white font-bold rounded hover:bg-blue-700">
               Volver al menú
             </button>
+            
           </Link>
         </div>
       </div>
