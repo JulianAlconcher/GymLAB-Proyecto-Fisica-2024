@@ -115,13 +115,16 @@ def suavizar_columna(csv_file, column_name, window_length=21, polyorder=2):
     return True
 
 GRAVITY = 9.8
-def get_potencial_energy(mass,height):
-    return mass * GRAVITY * height
+def get_potencial_energy(mass_dumbel,y_wrist):
+    print("ESTOY EN get_potencial_energy")
+    return mass_dumbel * GRAVITY * y_wrist
 
-def get_kinetic_energy(mass,velocity):
-    kinetic_energy = 0.5 * mass * (velocity**2)
-    print(kinetic_energy)
+def get_kinetic_energy(mass_dumbel,velocity):
+    print("ESTOY EN get_kinetic_energy")
+    kinetic_energy = 0.5 * mass_dumbel * (velocity**2)
     return kinetic_energy
 
-def get_mechanical_energy(mass,height,velocity):
-    return get_potencial_energy(mass,height) + get_kinetic_energy(mass,velocity)
+def get_mechanical_energy(mass_dumbel,y_wrist,velocity):
+    print("ESTOY EN get_mechanical_energy")
+    return get_potencial_energy(mass_dumbel,y_wrist) + get_kinetic_energy(mass_dumbel,velocity)
+
