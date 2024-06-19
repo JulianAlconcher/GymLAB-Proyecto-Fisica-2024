@@ -70,7 +70,7 @@ def create_pdf(weight=80, genre="Masculino", height=1.70, training_level=1, dist
             if filename.endswith('.png'):
                 try:
                     pdf.image(os.path.join(image_folder, filename), x=10, y=None, w=190, h=100)
-                    pdf.ln(105)  # Ajusta la separación entre imágenes según sea necesario
+                    pdf.ln(20)  # Ajusta la separación entre imágenes según sea necesario
                 except Exception as e:
                     print(f"No se pudo agregar la imagen {filename}: {e}")
 

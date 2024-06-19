@@ -3,7 +3,6 @@ from utils.utils import get_kinetic_energy, get_mechanical_energy, get_potencial
 import pandas as pd
 
 def append_energy_to_csv_and_json(mass_dumbel):
-    print("ESTOY LLAMANDO A APPEND ENERGY TO CSV AND JSON")
     file_path = "pose_data.csv"
     df = pd.read_csv(file_path)
     
@@ -22,7 +21,6 @@ def append_energy_to_csv_and_json(mass_dumbel):
 
 
     for index, row in df.iterrows():
-        print("ADENTRO DEL FOR")
         current_frame = index
         current_row = df[df['Frame'] == current_frame]
 
