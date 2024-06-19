@@ -57,7 +57,7 @@ def upload():
             print("La experiencia es: ", experienceNumber)
             csv_state = calculate_forces(height=float(height), weight= float(weight), mass_weight= float(weightDumbbell), training_level=experienceNumber, distance_forearm=float(forearmDistance))
             print("Guardo energias en el servidor ")
-            csv_state= append_energy_to_csv_and_json(weightDumbbell)
+            csv_state= append_energy_to_csv_and_json(float(weightDumbbell))
             print("Guardo graficos en el servidor ")
             csv_state = saveGraphics()
             csv_state = create_pdf(weight=float(weight), height=float(height), training_level=experienceNumber, distance_forearm=float(forearmDistance), mass_weight= float(weightDumbbell))
