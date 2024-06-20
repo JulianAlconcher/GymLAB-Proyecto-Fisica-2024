@@ -1,8 +1,8 @@
 
-from utils.utils import get_kinetic_energy, get_mechanical_energy, get_potencial_energy
+from utils.utils import get_forearm_Y, get_kinetic_energy, get_mechanical_energy, get_potencial_energy
 import pandas as pd
 
-def append_energy_to_csv_and_json(mass_dumbel):
+def append_energy_to_csv_and_json(mass_dumbel, mass_forearm):
     file_path = "pose_data.csv"
     df = pd.read_csv(file_path)
     
@@ -26,14 +26,21 @@ def append_energy_to_csv_and_json(mass_dumbel):
 
         wrist_y_a = current_row['Wrist_Y_Normalized'].tolist()
         wrist_y = ' '.join(map(str, wrist_y_a))
+        wrist_y_float = float(wrist_y)
+        
+        elbow_y_a = current_row['Elbow_Y_Normalized'].tolist()
+        elbow_y = ' '.join(map(str, elbow_y_a))
+        elbow_y_float = float(elbow_y)
+        
+        forearm_y = get_forearm_Y(elbow_y_float, wrist_y_float)
+        
         velocidad_instantanea_a= current_row['velocidad_instantanea'].tolist()
         velocidad_instantanea= ' '.join(map(str, velocidad_instantanea_a))
         velocidad_instantanea_float = float(velocidad_instantanea)
-        wrist_y_float = float(wrist_y)
 
-        energia_potencial= get_potencial_energy(mass_dumbel,wrist_y_float)
-        energia_cinetica= get_kinetic_energy(mass_dumbel,velocidad_instantanea_float)
-        energia_mecanica= get_mechanical_energy(mass_dumbel,wrist_y_float,velocidad_instantanea_float)
+        energia_potencial= get_potencial_energy(mass_dumbel,wrist_y_float) + get_potencial_energy(mass_forearm,forearm_y)
+        energia_cinetica= get_kinetic_energy(mass_dumbel,velocidad_instantanea_float) + get_kinetic_energy(mass_forearm,velocidad_instantanea_float)
+        energia_mecanica= energia_potencial + energia_cinetica
 
         # Asignar valores al DataFrame
         df.loc[df['Frame'] == current_frame, col_energia_potencial] = energia_potencial

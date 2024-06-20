@@ -124,3 +124,8 @@ def get_kinetic_energy(mass_dumbel:float,velocity:float):
 def get_mechanical_energy(mass_dumbel:float,y_wrist:float,velocity:float):
     return get_potencial_energy(mass_dumbel,y_wrist) + get_kinetic_energy(mass_dumbel,velocity)
 
+def get_forearm_Y(Y_elbow, Y_wrist):
+    return (Y_elbow + Y_wrist)/2
+
+def convert_joules_to_kcal(joules):
+    return joules / 4184
