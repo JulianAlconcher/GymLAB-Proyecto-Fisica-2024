@@ -74,10 +74,14 @@ def create_pdf(weight=80, genre="Masculino", height=1.70, training_level=1, dist
         max_energy_potencial = df["energia_potencial"].max().round(2)
         max_energy_cinetica = df["energia_cinetica"].max().round(2)
         max_energy_mecanica = df["energia_mecanica"].max().round(2)
+        calories_burned = df["calorias_quemadas"].iloc[0].round(2)
+        work_done = df["trabajo"].iloc[0].round(2)
 
-        pdf.cell(0, 10, f'Mayor energía potencial: {max_energy_potencial}', 0, 1)
-        pdf.cell(0, 10, f'Mayor energía cinetica: {max_energy_cinetica}', 0, 1)
-        pdf.cell(0, 10, f'Mayor energía mecanica: {max_energy_mecanica}', 0, 1)
+        pdf.cell(0, 10, f'Mayor energía potencial: {max_energy_potencial} J', 0, 1)
+        pdf.cell(0, 10, f'Mayor energía cinetica: {max_energy_cinetica} J', 0, 1)
+        pdf.cell(0, 10, f'Mayor energía mecanica: {max_energy_mecanica} J', 0, 1)
+        pdf.cell(0, 10, f'Calorias quemadas: {calories_burned} calorias', 0, 1)
+        pdf.cell(0, 10, f'Trabajo realizado: {work_done} J', 0, 1)
         
         pdf.ln(15)     
         
