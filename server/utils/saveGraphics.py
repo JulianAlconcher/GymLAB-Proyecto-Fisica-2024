@@ -23,29 +23,29 @@ def saveGraphics():
 
         # Crea el primer gráfico de velocidad instantánea
         if 'velocidad_instantanea_suavizada' in data.columns:
-            plt.plot(data['velocidad_instantanea_suavizada'])
-            plt.xlabel('Tiempo')
-            plt.ylabel('Velocidad Instantánea')
+            plt.plot(data['TimeStamp'], data['velocidad_instantanea_suavizada'])
+            plt.xlabel('Tiempo (seg)')
+            plt.ylabel('Velocidad Instantánea (m/s)')
             plt.title('Gráfico de Velocidad Instantánea')
             plt.savefig(os.path.join(output_dir, 'velocidad_instantanea_suavizada.png'))
             plt.close()
 
         # Crea el segundo gráfico de aceleración instantánea
         if 'aceleracion_instantanea_suavizada' in data.columns:
-            plt.plot(data['aceleracion_instantanea_suavizada'])
-            plt.xlabel('Tiempo')
-            plt.ylabel('Aceleración Instantánea')
+            plt.plot(data['TimeStamp'], data['aceleracion_instantanea_suavizada'])
+            plt.xlabel('Tiempo (seg)')
+            plt.ylabel('Aceleración Instantánea (m/s^2)')
             plt.title('Gráfico de Aceleración Instantánea')
             plt.savefig(os.path.join(output_dir, 'aceleracion_instantanea_suavizada.png'))
             plt.close()
 
         # Crea el gráfico de energías
-        plt.plot(data['energia_potencial'], label='Energía Potencial', color='blue')
-        plt.plot(data['energia_cinetica'], label='Energía Cinética', color='green')
-        plt.plot(data['energia_mecanica'], label='Energía Mecánica', color='red')
+        plt.plot(data['TimeStamp'],data['energia_potencial'], label='Energía Potencial', color='blue')
+        plt.plot(data['TimeStamp'],data['energia_cinetica'], label='Energía Cinética', color='green')
+        plt.plot(data['TimeStamp'],data['energia_mecanica'], label='Energía Mecánica', color='red')
         
-        plt.xlabel('Tiempo')
-        plt.ylabel('Energía')
+        plt.xlabel('Tiempo (seg)')
+        plt.ylabel('Energía (J)')
         plt.title('Gráfico de Energías en Función del Tiempo')
         plt.legend()
 
