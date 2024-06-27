@@ -25,14 +25,21 @@ const GuidePage: React.FC = () => {
         <p className="text-gray-600 mb-4">
           Pero previo a la subida del video se deben completar un formulario para la obtencion de datos.
         </p>
-        <img src="/FormularioGuia.png" alt="Completar Formulario" width="50%" className="h-auto mb-4"/>
+        <img src="/formularioGuia.png" alt="Completar Formulario" className="h-auto mb-4"/>
         <p className="text-gray-600">
-          <b>Peso:</b> se debe indicar el peso actual de la persona que esta realizando el ejercicio.
+          <b>Peso(kg):</b> se debe indicar el peso actual de la persona que esta realizando el ejercicio.
         </p>
         <p className="text-gray-600">
-         <b> Altura:</b> se debe indicar la altura actual de la persona que esta realizando el ejercicio.
+         <b> Altura(cm):</b> se debe indicar la altura actual de la persona que esta realizando el ejercicio.
         </p>
-        <p className="text-gray-600"> Luego se debe seleccionar el <b>genero</b> de la persona y su <b>nivel</b> en el gimnasio</p>
+        <p className="text-gray-600">
+         <b> Peso de la mancuerna(kg):</b> Debe indicar el peso de la mancuerna con la cual realiza el ejercicio.
+        </p>
+        <p className="text-gray-600">
+         <b> Medida del Antebrazo(cm):</b> Es uno de los datos mas imporantes, recomendamos que el antebrazo se mida con la mejor presicion posible.
+        </p>
+       
+        <p className="text-gray-600"> Luego se debe seleccionar el <b>Ejercicio</b> que esta realizando y su <b>nivel</b> en el gimnasio</p>
         <p className="text-gray-600 mb-4"> Una vez completados estos datos se puede proceder a subir el video (El formato puede ser <b>MP4 o MOV </b>)</p>
         <img src="/FormularioGuia2.png" alt="Subir video" width="50%" className="h-auto mb-4"/>
 
@@ -55,7 +62,7 @@ const GuidePage: React.FC = () => {
           Después del análisis, podrás ver un resumen detallado de tu ejercicio. Esto incluirá estadísticas clave como 
           velocidad, aceleración, fuerza y energía. Utiliza esta información para mejorar tu técnica y optimizar tu rendimiento.
         </p>
-        <img src="/summary_example.png" alt="Resumen de ejercicio" width="75%" className="h-auto mb-4"/>
+        <img src="/PDF.png" alt="Resumen de ejercicio"  width="40%" className="h-auto"/>
       </section>
     </div>
   );

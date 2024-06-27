@@ -48,17 +48,31 @@ const AboutPage: React.FC = () => {
 
         </section>
         <section className="mb-6">
-          <h2 className="text-2xl text-gray-700 mb-2">Fuerza</h2>
+          <h2 className="text-2xl text-gray-700 mb-2 font-bold">Fuerza</h2>
           <p className="text-gray-600">
-            Explicacion sobre como y porque calculamos la fuerza...
+            Para calcular la fuerza maxima que se realiza se tuvo en cuenta lo siguiente:
           </p>
+          <img src="/Fuerza.png" alt="Fuerzas" width="75%" className="h-auto m-2"/>
+          <p className="text-gray-600">
+            Y luego de calcular los distintos puntos de inercia podemos calcular la fuerza del bicep que es lo que nos interesa en este ejercicio:
+          </p>
+          <img src="/Fuerza2.png" alt="Calculo de Fuerzas" width="75%" className="h-auto m-2 "/>
           
         </section>
         <section>
-          <h2 className="text-2xl text-gray-700 mb-2">Energia</h2>
+          <h2 className="text-2xl text-gray-700 mb-2 font-bold">Energia</h2>
           <p className="text-gray-600">
-            Explicacion sobre como y porque calculamos la energia...
+            La energia nos importa calcularlo ya que vamos a poder saber cuantas calorias estamos gastando cuando realizamos el ejercicio de Curl de Bicep.
           </p>
+          <p className="text-gray-600">
+            Para ello calculamos: Energia <b> Potencial Gravitatoria</b>, la Energia <b>Cinética</b> y la Energia <b>Mecánica</b>.
+          </p>
+          <p className="text-gray-600">
+            Para luego a partir de esta ultima poder obtener las calorias que se consumen al realizar el ejercicio.
+          </p>
+          <img src="/Energia1.png" alt="Energias" width="75%" className="h-auto m-2"/>
+          <img src="/Energia2.png" alt="Calculo de Calorias" width="75%" className="h-auto m-2"/>
+
         </section>
       </div>
     );
