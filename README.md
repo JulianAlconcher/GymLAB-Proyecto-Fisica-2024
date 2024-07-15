@@ -37,7 +37,9 @@ Inicializar la aplicacion:
    npm run dev
    
    ```
-![Screenshot 2024-06-27 131153](https://github.com/JulianAlconcher/GymLAB-Proyecto-Fisica-2024/assets/111883752/1d7a05a3-6518-4469-9e3b-de4a8fa37b39)
-![Screenshot 2024-06-27 131210](https://github.com/JulianAlconcher/GymLAB-Proyecto-Fisica-2024/assets/111883752/126c2943-fe84-4de0-975d-15a517b2570e)
-![Screenshot 2024-06-27 131220](https://github.com/JulianAlconcher/GymLAB-Proyecto-Fisica-2024/assets/111883752/272dc6bd-0964-43cd-b559-bc0ba5265d03)
+
+![246_1x_shots_so](https://github.com/user-attachments/assets/fd52ed35-f6f4-4ca1-b6fd-47e462da8df7)
+![525_1x_shots_so](https://github.com/user-attachments/assets/39522044-6207-491e-bd9b-25a7db45ce1f)
+![586_1x_shots_so](https://github.com/user-attachments/assets/44e5b5d5-2d9c-4e26-8019-cc7fd16d3e22)
+![382_1x_shots_so](https://github.com/user-attachments/assets/7ede37e6-4998-4c0d-9e4a-304dd9715f6d)
 
